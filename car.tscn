@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dub1s7vpju0ql"]
+
+[ext_resource type="Script" path="res://car.gd" id="1_uoj53"]
+[ext_resource type="Texture2D" uid="uid://cnbj20gekg7bw" path="res://car.png" id="2_k61xc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uoj53"]
+size = Vector2(45, 108)
+
+[node name="Car" type="Area2D"]
+script = ExtResource("1_uoj53")
+
+[node name="Killbox" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_uoj53")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_k61xc")
+
+[node name="StoppingDistance" type="Area2D" parent="."]
+position = Vector2(0, 109)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StoppingDistance"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_uoj53")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

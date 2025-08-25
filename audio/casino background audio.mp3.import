@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmrkkqypr2s2o"
+path="res://.godot/imported/casino background audio.mp3-3749031d178af23acb4fe5a8e116622f.mp3str"
+
+[deps]
+
+source_file="res://audio/casino background audio.mp3"
+dest_files=["res://.godot/imported/casino background audio.mp3-3749031d178af23acb4fe5a8e116622f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

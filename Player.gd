@@ -1,26 +1,50 @@
 extends CharacterBody2D
 class_name Player
 
-var room_offset = {
-	"outside": Vector2(192, 152),
-	"bakery": Vector2(544, 152),
-	"casino": Vector2(192, 424),
-	"shop": Vector2(544, 424),
-}
+@export var outside: Node2D
+@export var bakery: Node2D
+@export var casino: Node2D
+@export var shop: Node2D
+
 @export var camera: Camera2D
 
 var base_movement_speed: float = 80.0
 var movement_speed: float
 
+# if youre within range of a slot machine
+var within_slot_range: bool = false
+var within_shop_range: bool = false
+var within_crosswalk_r
 func _ready() -> void:
-	camera.global_position = room_offset["bakery"]
+	camera.global_position = bakery.camera_pos
+	outside.exited()
+	casino.exited()
+	shop.exited()
+	bakery.entered()
 
 func _physics_process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("interact"):
+		if within_slot_range:
+			open_slot_machine()
+		elif within_shop_range:
+			open_shop()
+	
 	movement_speed = base_movement_speed
 	var input: Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
 	velocity = input * movement_speed
 	move_and_slide()
 
-func teleport_to(target: Vector2, room_name: String) -> void:
-	camera.global_position = room_offset[room_name]
+func teleport_to(target: Vector2, current_room_name: String, new_room_name: String) -> void:
+	var new_room_scene = get(new_room_name)
+	var current_room_scene = get(current_room_name)
+	camera.global_position = new_room_scene.camera_pos
 	global_position = target
+	new_room_scene.entered()
+	current_room_scene.exited()
+
+func open_slot_machine() -> void:
+	print("open")
+
+func open_shop() -> void:
+	pass

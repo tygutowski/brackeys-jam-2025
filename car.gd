@@ -6,8 +6,8 @@ const DECELERATION = 100
 const SPEED_LIMIT = 100
 const MIN_VELOCITY = 0.1
 
-var velocity
-var drive
+var velocity: float
+var drive: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

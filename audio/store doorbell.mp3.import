@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvr3gwxvcyqfj"
+path="res://.godot/imported/store doorbell.mp3-0b00bf927cd0752c7e2b18798cbf335b.mp3str"
+
+[deps]
+
+source_file="res://audio/store doorbell.mp3"
+dest_files=["res://.godot/imported/store doorbell.mp3-0b00bf927cd0752c7e2b18798cbf335b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

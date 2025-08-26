@@ -17,11 +17,11 @@ var within_shop_range: bool = false
 
 func _ready() -> void:
 	slot_machine_hud.visible = false
-	camera.global_position = bakery.camera_pos
+	camera.global_position = casino.camera_pos
 	outside.exited()
-	casino.exited()
 	shop.exited()
-	bakery.entered()
+	bakery.exited()
+	casino.entered()
 
 func _physics_process(_delta: float) -> void:
 	# if youre within range of slot machines

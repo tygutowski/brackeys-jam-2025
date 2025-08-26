@@ -1,0 +1,585 @@
+[gd_scene load_steps=33 format=3 uid="uid://df56b7s6avaf8"]
+
+[ext_resource type="PackedScene" uid="uid://cl21kvpvqikjt" path="res://scenes/Spinner.tscn" id="1_00bh1"]
+[ext_resource type="Script" uid="uid://dyiu38wi45so8" path="res://scripts/SlotMachineGUI.gd" id="1_v24rf"]
+[ext_resource type="AudioStream" uid="uid://c1p33sxlavhjy" path="res://audio/crank.mp3" id="2_k017t"]
+[ext_resource type="Texture2D" uid="uid://dhmf2r3rjud7d" path="res://art/slot_machine_hud.png" id="2_v24rf"]
+[ext_resource type="Texture2D" uid="uid://bauacno634aay" path="res://art/crank_tileset.png" id="3_44m3l"]
+[ext_resource type="AudioStream" uid="uid://bvyrc22jf1gjv" path="res://audio/coin-jingle.mp3" id="3_ck8s2"]
+[ext_resource type="Texture2D" uid="uid://ccp6dtd4og2iy" path="res://art/hand.png" id="4_7pjsk"]
+[ext_resource type="Texture2D" uid="uid://75x8oolcm5ob" path="res://art/coin_mechanism.png" id="4_qpxbj"]
+[ext_resource type="Script" uid="uid://12cp2g5i4y8t" path="res://scripts/HandCursor.gd" id="5_k50qd"]
+[ext_resource type="AudioStream" uid="uid://bsosco0dhkl5x" path="res://audio/tap.mp3" id="6_8q5i5"]
+[ext_resource type="Texture2D" uid="uid://h54glqrkjgbo" path="res://art/stop_button_spritesheet.png" id="8_44m3l"]
+[ext_resource type="Texture2D" uid="uid://bcqrpuhi1fx53" path="res://art/coin.png" id="9_qt7ib"]
+[ext_resource type="FontFile" uid="uid://4jle2pqn3ok5" path="res://monopixel.otf" id="12_7vgjm"]
+
+[sub_resource type="Animation" id="Animation_bvhbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlotMachine/Crank:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wuoie"]
+resource_name = "crank"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlotMachine/Crank:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spinner1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spinner2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Spinner3")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CrankSfx")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_44m3l"]
+resource_name = "stop"
+step = 0.25
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_spinners"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7vgjm"]
+resource_name = "no_money_crank"
+length = 3.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlotMachine/Crank:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CrankSfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label1:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_e0uqf"]
+resource_name = "empty_crank"
+length = 3.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlotMachine/Crank:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CrankSfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cpsxm"]
+_data = {
+&"RESET": SubResource("Animation_bvhbk"),
+&"crank": SubResource("Animation_wuoie"),
+&"empty_crank": SubResource("Animation_e0uqf"),
+&"no_money_crank": SubResource("Animation_7vgjm"),
+&"stop": SubResource("Animation_44m3l")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vgjm"]
+size = Vector2(34, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvhbk"]
+size = Vector2(65, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpsxm"]
+size = Vector2(65, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmewc"]
+size = Vector2(149, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44m3l"]
+size = Vector2(24, 14)
+
+[sub_resource type="Animation" id="Animation_ck8s2"]
+resource_name = "insertcoin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../InsertCoinSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../InsertCoinSprite:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 28)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CoinInsert")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kmww4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../InsertCoinSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../InsertCoinSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e0uqf"]
+_data = {
+&"RESET": SubResource("Animation_kmww4"),
+&"insertcoin": SubResource("Animation_ck8s2")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qt7ib"]
+radius = 13.0
+
+[sub_resource type="Animation" id="Animation_w2501"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0mevm"]
+resource_name = "tap"
+length = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jsoai"]
+_data = {
+&"RESET": SubResource("Animation_w2501"),
+&"tap": SubResource("Animation_0mevm")
+}
+
+[node name="SlotMachine" type="CanvasLayer"]
+script = ExtResource("1_v24rf")
+is_rigged = null
+edge = null
+disappoint = null
+
+[node name="CrankSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_k017t")
+
+[node name="CoinInsert" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ck8s2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cpsxm")
+}
+
+[node name="Spinner1" parent="." instance=ExtResource("1_00bh1")]
+position = Vector2(131, 112)
+normal_speed = 200.0
+
+[node name="Spinner2" parent="." instance=ExtResource("1_00bh1")]
+position = Vector2(158, 112)
+normal_speed = 350.0
+
+[node name="Spinner3" parent="." instance=ExtResource("1_00bh1")]
+position = Vector2(185, 112)
+normal_speed = 500.0
+
+[node name="SlotMachine" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(160, 120)
+texture = ExtResource("2_v24rf")
+
+[node name="Area2D" type="Area2D" parent="SlotMachine"]
+position = Vector2(-61, 83)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotMachine/Area2D"]
+position = Vector2(1, -7)
+shape = SubResource("RectangleShape2D_7vgjm")
+
+[node name="CoinMechanism" type="Sprite2D" parent="SlotMachine"]
+z_index = 2
+position = Vector2(-60, 96)
+texture = ExtResource("4_qpxbj")
+
+[node name="Crank" type="Sprite2D" parent="SlotMachine"]
+texture_filter = 1
+position = Vector2(101, 39)
+texture = ExtResource("3_44m3l")
+hframes = 3
+
+[node name="GrabArea" type="Area2D" parent="SlotMachine/Crank"]
+position = Vector2(0, -40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotMachine/Crank/GrabArea"]
+position = Vector2(-4, -4)
+shape = SubResource("RectangleShape2D_wuoie")
+
+[node name="PullArea" type="Area2D" parent="SlotMachine/Crank"]
+position = Vector2(0, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotMachine/Crank/PullArea"]
+position = Vector2(-0.5, 8)
+shape = SubResource("RectangleShape2D_bvhbk")
+
+[node name="CancelArea" type="Area2D" parent="SlotMachine/Crank"]
+position = Vector2(0, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotMachine/Crank/CancelArea"]
+position = Vector2(-0.5, -36)
+shape = SubResource("RectangleShape2D_cpsxm")
+
+[node name="TapArea" type="Area2D" parent="SlotMachine"]
+position = Vector2(120, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotMachine/TapArea"]
+position = Vector2(-128.5, -46.5)
+shape = SubResource("RectangleShape2D_hmewc")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(154, 194)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12, 10)
+shape = SubResource("RectangleShape2D_44m3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture_filter = 1
+texture = ExtResource("8_44m3l")
+centered = false
+hframes = 2
+frame = 1
+
+[node name="InsertCoinSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(100, 191)
+texture = ExtResource("9_qt7ib")
+
+[node name="CoinInsertAnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CoinPurse")
+libraries = {
+&"": SubResource("AnimationLibrary_e0uqf")
+}
+
+[node name="CoinPurse" type="Node2D" parent="."]
+position = Vector2(28, 214)
+
+[node name="Sprite2D" type="Sprite2D" parent="CoinPurse"]
+texture_filter = 1
+texture = ExtResource("9_qt7ib")
+
+[node name="Area2D" type="Area2D" parent="CoinPurse/Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CoinPurse/Sprite2D/Area2D"]
+shape = SubResource("CircleShape2D_qt7ib")
+
+[node name="Label1" type="Label" parent="."]
+texture_filter = 1
+offset_left = 84.0
+offset_top = 135.0
+offset_right = 111.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.654902, 0.423529, 0.121569, 1)
+theme_override_fonts/font = ExtResource("12_7vgjm")
+theme_override_font_sizes/font_size = 5
+text = "stake"
+
+[node name="Label2" type="Label" parent="."]
+texture_filter = 1
+offset_left = 84.0
+offset_top = 142.0
+offset_right = 111.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0.654902, 0.423529, 0.121569, 1)
+theme_override_fonts/font = ExtResource("12_7vgjm")
+theme_override_font_sizes/font_size = 5
+text = "0"
+
+[node name="Label3" type="Label" parent="."]
+texture_filter = 1
+offset_left = 84.0
+offset_top = 159.0
+offset_right = 111.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(0.654902, 0.423529, 0.121569, 1)
+theme_override_fonts/font = ExtResource("12_7vgjm")
+theme_override_font_sizes/font_size = 5
+text = "jackpot"
+
+[node name="Label4" type="Label" parent="."]
+texture_filter = 1
+offset_left = 84.0
+offset_top = 166.0
+offset_right = 111.0
+offset_bottom = 173.0
+theme_override_colors/font_color = Color(0.654902, 0.423529, 0.121569, 1)
+theme_override_fonts/font = ExtResource("12_7vgjm")
+theme_override_font_sizes/font_size = 5
+text = "0"
+
+[node name="Hand" type="Sprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+texture = ExtResource("4_7pjsk")
+offset = Vector2(6, 24)
+hframes = 3
+frame = 1
+script = ExtResource("5_k50qd")
+
+[node name="Coin1Sprite" type="Sprite2D" parent="Hand"]
+z_index = -1
+texture_filter = 1
+position = Vector2(6, 11)
+texture = ExtResource("9_qt7ib")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hand"]
+libraries = {
+&"": SubResource("AnimationLibrary_jsoai")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Hand"]
+stream = ExtResource("6_8q5i5")
+
+[connection signal="mouse_entered" from="SlotMachine/Area2D" to="Hand" method="_on_coinmechanism_mouse_entered"]
+[connection signal="mouse_exited" from="SlotMachine/Area2D" to="Hand" method="_on_coinmechanism_mouse_exited"]
+[connection signal="mouse_entered" from="SlotMachine/Crank/GrabArea" to="Hand" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="SlotMachine/Crank/GrabArea" to="Hand" method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="SlotMachine/Crank/PullArea" to="Hand" method="_on_pull_area_mouse_entered"]
+[connection signal="mouse_exited" from="SlotMachine/Crank/CancelArea" to="Hand" method="_on_cancel_area_mouse_exited"]
+[connection signal="mouse_entered" from="SlotMachine/TapArea" to="Hand" method="_on_tap_area_mouse_entered"]
+[connection signal="mouse_exited" from="SlotMachine/TapArea" to="Hand" method="_on_tap_area_mouse_exited"]
+[connection signal="mouse_entered" from="Area2D" to="Hand" method="_on_stopbutton_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="Hand" method="_on_stopbutton_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="CoinPurse/Sprite2D/Area2D" to="Hand" method="_on_coinpurse_mouse_entered"]
+[connection signal="mouse_exited" from="CoinPurse/Sprite2D/Area2D" to="Hand" method="_on_coinpurse_mouse_exited"]

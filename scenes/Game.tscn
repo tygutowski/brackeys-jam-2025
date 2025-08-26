@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dfa7cveux5qrs"]
+[gd_scene load_steps=35 format=4 uid="uid://dfa7cveux5qrs"]
 
 [ext_resource type="Texture2D" uid="uid://d30uwd8shcjfy" path="res://art/custom-tilemap.png" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://2kedd4titwns" path="res://scripts/Player.gd" id="2_u44n3"]
@@ -15,8 +15,12 @@
 [ext_resource type="AudioStream" uid="uid://cmrkkqypr2s2o" path="res://audio/casino ambience.mp3" id="11_qjyg3"]
 [ext_resource type="Script" uid="uid://12ok5wom7iuu" path="res://scripts/ShopManager.gd" id="12_elkpi"]
 [ext_resource type="AudioStream" uid="uid://cjtxqhpc681sa" path="res://audio/store ambience.mp3" id="13_yyih5"]
+[ext_resource type="Texture2D" uid="uid://bdjeq011utj68" path="res://art/grandma1.png" id="14_a8wo8"]
 [ext_resource type="AudioStream" uid="uid://dvr3gwxvcyqfj" path="res://audio/store doorbell.mp3" id="14_qjyg3"]
+[ext_resource type="Texture2D" uid="uid://yafmclbh5vur" path="res://art/1coin.png" id="18_kyk2p"]
+[ext_resource type="Script" uid="uid://0w7g5iaf7b5f" path="res://scenes/ui.gd" id="18_sv1m6"]
 [ext_resource type="PackedScene" uid="uid://df56b7s6avaf8" path="res://scenes/SlotMachineHUD.tscn" id="18_wuoie"]
+[ext_resource type="FontFile" uid="uid://4jle2pqn3ok5" path="res://monopixel.otf" id="19_45i86"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0x5m"]
 texture = ExtResource("2_t88pq")
@@ -531,7 +535,7 @@ _data = {
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_7ged1"]
+[sub_resource type="CurveTexture" id="CurveTexture_vjgi4"]
 curve = SubResource("Curve_hmewc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0mevm"]
@@ -540,7 +544,7 @@ emission_shape_scale = Vector3(0, 1, 1)
 direction = Vector3(0, -1, 0)
 initial_velocity_max = 10.0
 gravity = Vector3(0, -3, 0)
-alpha_curve = SubResource("CurveTexture_7ged1")
+alpha_curve = SubResource("CurveTexture_vjgi4")
 
 [sub_resource type="Animation" id="Animation_7ged1"]
 length = 0.001
@@ -605,7 +609,7 @@ tile_set = SubResource("TileSet_t88pq")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="World/Generic" node_paths=PackedStringArray("outside", "bakery", "casino", "shop", "camera", "slot_machine_hud")]
 z_index = 1
-position = Vector2(533, 185)
+position = Vector2(908, 175)
 script = ExtResource("2_u44n3")
 outside = NodePath("../../Outside")
 bakery = NodePath("../../Bakery")
@@ -629,7 +633,7 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="World/Generic"]
-position = Vector2(1248, 152)
+position = Vector2(895, 152)
 
 [node name="Outside" type="Node2D" parent="World"]
 script = ExtResource("5_gwjdr")
@@ -738,17 +742,29 @@ new_room = "outside"
 target_room = NodePath("../../Outside/CasinoInDoor")
 
 [node name="SlotMachine" parent="World/Casino" instance=ExtResource("6_r0x5m")]
-position = Vector2(944, 136)
+position = Vector2(946, 84)
+occupied = true
 
 [node name="SlotMachine2" parent="World/Casino" instance=ExtResource("6_r0x5m")]
-position = Vector2(944, 98)
+position = Vector2(946, 135)
 
 [node name="SlotMachine3" parent="World/Casino" instance=ExtResource("6_r0x5m")]
-position = Vector2(944, 176)
+position = Vector2(945, 186)
+occupied = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Casino"]
 stream = ExtResource("11_qjyg3")
 autoplay = true
+
+[node name="Grandma1" type="Sprite2D" parent="World/Casino"]
+texture_filter = 1
+position = Vector2(945, 90)
+texture = ExtResource("14_a8wo8")
+
+[node name="Grandma2" type="Sprite2D" parent="World/Casino"]
+texture_filter = 1
+position = Vector2(944, 192)
+texture = ExtResource("14_a8wo8")
 
 [node name="Shop" type="Node2D" parent="World"]
 script = ExtResource("12_elkpi")
@@ -768,3 +784,26 @@ stream = ExtResource("14_qjyg3")
 
 [node name="SlotMachine" parent="." instance=ExtResource("18_wuoie")]
 visible = false
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("18_sv1m6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="UI/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("18_kyk2p")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="UI/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("19_45i86")
+theme_override_font_sizes/font_size = 15
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1

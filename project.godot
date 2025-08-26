@@ -8,11 +8,19 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+
 [application]
 
 config/name="brackeys-jam-2025"
 run/main_scene="uid://dfa7cveux5qrs"
 config/features=PackedStringArray("4.4", "Forward Plus")
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [display]
 

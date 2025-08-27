@@ -22,9 +22,13 @@ var is_stopped: bool = true
 @onready var wheel_a: Sprite2D = $"Sprite2D"
 @onready var wheel_b: Sprite2D = $"Sprite2D2"
 var wheel_height: int = 0
+
+func enter_casino() -> void:
+	reel_offset = 16 * randi_range(0, 9)
+
 func _ready() -> void:
 	speed = 0.0
-	reel_offset = 0.0
+	reel_offset = 16 * randi_range(0, 9)
 	is_stopped = true
 	wheel_height = int(wheel_a.texture.get_size().y)
 	offset(wheel_a.texture.get_size().y)

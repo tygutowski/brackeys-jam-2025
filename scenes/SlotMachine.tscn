@@ -1,7 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpum3d8mioh6j"]
+[gd_scene load_steps=9 format=3 uid="uid://bpum3d8mioh6j"]
 
 [ext_resource type="Script" uid="uid://cxcfnu83d15wa" path="res://scripts/SlotMachine.gd" id="1_nmlme"]
 [ext_resource type="Texture2D" uid="uid://coxgxeyxr2nls" path="res://art/slot_machine-sheet.png" id="2_nmlme"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7r8tb"]
+size = Vector2(24, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6tw1"]
+size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(32, 32)
@@ -54,6 +60,19 @@ texture_filter = 1
 texture = ExtResource("2_nmlme")
 centered = false
 hframes = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_7r8tb")
+disabled = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(8, 4)
+shape = SubResource("RectangleShape2D_b6tw1")
 
 [node name="Area2D" type="Area2D" parent="."]
 texture_filter = 1

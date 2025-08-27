@@ -22,7 +22,10 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 # passive animations, might get rid of later.
 func _process(delta: float) -> void:
 	if occupied:
+		$StaticBody2D/CollisionShape2D.disabled = false
 		if animation_timer <= 0:
 			get_node("AnimationPlayer").play("crank")
 			animation_timer = randf_range(0, 10)
 		animation_timer -= delta
+	else:
+		$StaticBody2D/CollisionShape2D.disabled = true

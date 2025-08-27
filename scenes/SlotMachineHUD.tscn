@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://df56b7s6avaf8"]
+[gd_scene load_steps=51 format=3 uid="uid://df56b7s6avaf8"]
 
 [ext_resource type="PackedScene" uid="uid://cl21kvpvqikjt" path="res://scenes/Spinner.tscn" id="1_00bh1"]
 [ext_resource type="Script" uid="uid://dyiu38wi45so8" path="res://scripts/SlotMachineGUI.gd" id="1_v24rf"]
@@ -21,7 +21,9 @@
 [ext_resource type="Texture2D" uid="uid://0srr8mtqwuxf" path="res://art/7coin.png" id="11_x5e71"]
 [ext_resource type="FontFile" uid="uid://4jle2pqn3ok5" path="res://monopixel.otf" id="12_7vgjm"]
 [ext_resource type="Texture2D" uid="uid://dn1ld744s7ssr" path="res://art/smoke_texture.png" id="16_x5e71"]
+[ext_resource type="Texture2D" uid="uid://u4qeax0p0qbk" path="res://art/coinpurse_back.png" id="19_b36n1"]
 [ext_resource type="Texture2D" uid="uid://bnmk6r8n6bqqy" path="res://art/coin-hider-background.png" id="19_p0x1c"]
+[ext_resource type="Texture2D" uid="uid://b4o2wwn86heop" path="res://art/coinpurse_front.png" id="20_sqd8s"]
 
 [sub_resource type="Animation" id="Animation_bvhbk"]
 length = 0.001
@@ -538,8 +540,8 @@ size = Vector2(151, 70)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5e71"]
 size = Vector2(16, 46.25)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0x1c"]
-size = Vector2(60, 53.125)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b36n1"]
+size = Vector2(61, 61)
 
 [sub_resource type="Animation" id="Animation_w2501"]
 length = 0.001
@@ -803,6 +805,17 @@ text = "0"
 [node name="CoinPurse" type="Node2D" parent="."]
 position = Vector2(13, 263)
 
+[node name="Sprite2D" type="Sprite2D" parent="CoinPurse"]
+texture_filter = 1
+position = Vector2(19, -48.5)
+texture = ExtResource("19_b36n1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CoinPurse"]
+z_index = 1
+texture_filter = 1
+position = Vector2(19, -48.5)
+texture = ExtResource("20_sqd8s")
+
 [node name="Area2D" type="Area2D" parent="CoinPurse"]
 visible = false
 position = Vector2(-3, -19)
@@ -824,12 +837,12 @@ texture = ExtResource("11_x5e71")
 position = Vector2(3, -64)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CoinPurse/Area2D2"]
-position = Vector2(14, 14.5625)
-shape = SubResource("RectangleShape2D_p0x1c")
+position = Vector2(16.5, -20)
+shape = SubResource("RectangleShape2D_b36n1")
 
 [node name="3coin" type="Sprite2D" parent="CoinPurse/Area2D2"]
 texture_filter = 1
-position = Vector2(10, 40)
+position = Vector2(16, 10)
 texture = ExtResource("10_e0uqf")
 
 [node name="Area2D3" type="Area2D" parent="CoinPurse"]

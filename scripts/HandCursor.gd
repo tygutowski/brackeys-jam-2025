@@ -11,7 +11,7 @@ var hand_on_one_cent_coin: bool = false
 var hand_on_three_cent_coin: bool = false
 var hand_on_seven_cent_coin: bool = false
 
-var denomination_in_hand: int = -1
+var denomination_in_hand: int = 0
 
 var holding_coin: bool = false
 var hovering_coin_mechanism: bool = false
@@ -30,9 +30,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	time += delta
-	$"../CoinPurse/Area2D/7coin".offset.y = sin(time + .5) * 3
-	$"../CoinPurse/Area2D2/3coin".offset.y = sin(time + 1) * 3
-	$"../CoinPurse/Area2D3/1coin".offset.y = sin(time + 1.5) * 3
+	$"../CoinPurse/Area2D/7coin".offset.y = sin(time*2 + .5) * 4
+	$"../CoinPurse/Area2D2/3coin".offset.y = sin(time*2 + 1) * 4
+	$"../CoinPurse/Area2D3/1coin".offset.y = sin(time + 1.5) * 4
 	$"../CoinPurse/Area2D/CollisionShape2D".disabled = false
 	if denomination_in_hand != 7:
 		$"../CoinPurse/Area2D/7coin".visible = true

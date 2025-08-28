@@ -46,9 +46,11 @@
 [ext_resource type="Script" uid="uid://bjvwntyegxxi4" path="res://scenes/shop.gd" id="42_kg1ax"]
 [ext_resource type="Texture2D" uid="uid://c1iq0gg5kvlce" path="res://art/shop_background.png" id="42_o5b2d"]
 [ext_resource type="Texture2D" uid="uid://bcqrpuhi1fx53" path="res://art/coin.png" id="43_0wf52"]
+[ext_resource type="Texture2D" uid="uid://d33tmr0cts60b" path="res://art/boot-icon.png" id="43_x0rj3"]
+[ext_resource type="Material" uid="uid://p4ogmapp3tyn" path="res://outline_material.tres" id="44_8fcgb"]
 [ext_resource type="Texture2D" uid="uid://c26parg7op8rb" path="res://art/counter.png" id="44_kg1ax"]
-[ext_resource type="PackedScene" uid="uid://drdb1em37afb5" path="res://Item.tscn" id="44_n6lnq"]
 [ext_resource type="Texture2D" uid="uid://hpr76iixppf4" path="res://art/clover4.png" id="45_3pold"]
+[ext_resource type="Script" uid="uid://6ofbnx8cbagd" path="res://scenes/ItemUnlock.gd" id="45_tqmsi"]
 [ext_resource type="Script" uid="uid://cyjlldhb1yfd5" path="res://scenes/emotion.gd" id="45_xfjuk"]
 [ext_resource type="Texture2D" uid="uid://dpqr6vulsacry" path="res://art/pager-icon.png" id="46_8fcgb"]
 [ext_resource type="Texture2D" uid="uid://ckh8ex4get4s" path="res://art/hat1.png" id="46_d6agh"]
@@ -56,19 +58,18 @@
 [ext_resource type="Texture2D" uid="uid://bh5tvfpmhggkj" path="res://art/hat_2.png" id="46_jipkd"]
 [ext_resource type="AudioStream" uid="uid://po5koc4iwagy" path="res://audio/giggle.mp3" id="46_jpcyn"]
 [ext_resource type="Texture2D" uid="uid://cp6g8gqci6x5q" path="res://art/walt_spritesheet.png" id="46_lktnb"]
-[ext_resource type="Texture2D" uid="uid://75x8oolcm5ob" path="res://art/coin_mechanism.png" id="46_tqmsi"]
 [ext_resource type="Texture2D" uid="uid://o375gcaaw22r" path="res://art/clover3.png" id="47_3ugab"]
 [ext_resource type="Texture2D" uid="uid://ccos33kjvsx7r" path="res://art/hat3.png" id="47_o01hm"]
 [ext_resource type="AudioStream" uid="uid://785ns2ckqwcb" path="res://audio/blinking.mp3" id="47_w6oi7"]
 [ext_resource type="Texture2D" uid="uid://dsayf1cyu8xe8" path="res://art/clover2.png" id="48_o5b2d"]
 [ext_resource type="Texture2D" uid="uid://b701a0wrtjt4y" path="res://art/hat4.png" id="48_ochta"]
-[ext_resource type="Texture2D" uid="uid://0blwpyybm8v7" path="res://art/oven_microwave_off.png" id="48_p3r3h"]
 [ext_resource type="Texture2D" uid="uid://cnnf0fe5k4g1c" path="res://art/doughbot.png" id="48_tqmsi"]
 [ext_resource type="Texture2D" uid="uid://dlmk284x2iwkw" path="res://art/hat5.png" id="49_d6agh"]
 [ext_resource type="Texture2D" uid="uid://qwxsb8nvr6h" path="res://art/conveyor.png" id="49_p3r3h"]
 [ext_resource type="Texture2D" uid="uid://4eca7a8kd7rs" path="res://art/clover1.png" id="49_px4p2"]
 [ext_resource type="Texture2D" uid="uid://d30wujjaywvv4" path="res://art/grandmacoin.png" id="50_3pold"]
 [ext_resource type="Texture2D" uid="uid://dtlykbej7844j" path="res://art/hat6.png" id="50_lktnb"]
+[ext_resource type="Texture2D" uid="uid://drafhlxovst6b" path="res://art/hopper.png" id="50_wgpx8"]
 [ext_resource type="Texture2D" uid="uid://ch7vguxgmbusb" path="res://art/clover0.png" id="50_x0rj3"]
 [ext_resource type="Texture2D" uid="uid://bxbmecgp2ibjv" path="res://art/hat_7.png" id="51_8fcgb"]
 [ext_resource type="Texture2D" uid="uid://bva5ll5jsv6e6" path="res://art/cranker.png" id="51_cf8r5"]
@@ -899,6 +900,12 @@ size = Vector2(64, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6agh"]
 size = Vector2(64, 39)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3r3h"]
+size = Vector2(20, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgpx8"]
+size = Vector2(34.7846, 12.2487)
+
 [sub_resource type="Animation" id="Animation_w6oi7"]
 length = 0.001
 tracks/0/type = "value"
@@ -1075,15 +1082,6 @@ _data = {
 &"RESET": SubResource("Animation_w2501"),
 &"tap": SubResource("Animation_0mevm")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cf8r5"]
-size = Vector2(49, 29)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltxvx"]
-size = Vector2(39.5, 25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf47n"]
-size = Vector2(31, 33.5)
 
 [node name="Game" type="Node2D"]
 
@@ -1525,13 +1523,6 @@ script = ExtResource("40_3ugab")
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_3pold")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Shop"]
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Shop"]
-texture_filter = 1
-position = Vector2(472, 173)
-texture = ExtResource("14_a8wo8")
-
 [node name="SlotMachine" parent="." instance=ExtResource("18_wuoie")]
 visible = false
 
@@ -1550,76 +1541,84 @@ texture_filter = 1
 texture = ExtResource("42_o5b2d")
 centered = false
 
-[node name="timbs" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
+[node name="boots" type="Sprite2D" parent="Shop/Wall"]
 position = Vector2(81, 69)
-unlock_method_name = "get_timbs"
-price = 40
-itemname = "Timberlands"
-description = "Gets you to and from the slot machines quicker"
+texture = ExtResource("43_x0rj3")
+script = ExtResource("45_tqmsi")
 
-[node name="pager" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(234, 128)
-texture = ExtResource("46_8fcgb")
-unlock_method_name = "get_pager"
-price = 70
-itemname = "Pager"
-description = "Notifies you when a customer enters the store"
+[node name="outline" type="Sprite2D" parent="Shop/Wall/boots"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("43_x0rj3")
 
-[node name="doughbot" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(72, 124)
-texture = ExtResource("48_tqmsi")
-unlock_method_name = "get_doughbot"
-price = 300
-itemname = "Doughbot 7000"
-description = "A large machine that automatically mixes and forms dough balls."
+[node name="Area2D" type="Area2D" parent="Shop/Wall/boots"]
 
-[node name="coolhat" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(200, 62)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/Wall/boots/Area2D"]
+position = Vector2(-13, -1.5)
+shape = SubResource("RectangleShape2D_p3r3h")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shop/Wall/boots/Area2D"]
+position = Vector2(9.00001, 4.00001)
+rotation = 0.523599
+shape = SubResource("RectangleShape2D_wgpx8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shop/Wall/boots/Area2D"]
+position = Vector2(2, 10)
+shape = SubResource("RectangleShape2D_wgpx8")
+
+[node name="coolhat" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(129, 116)
 texture = ExtResource("46_im84i")
-unlock_method_name = "get_cool_hat"
-price = 500
-itemname = "Cool Hat"
-description = "A really cool hat. Women will want you, men will want to be you. "
 
-[node name="cranker" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(146, 77)
-texture = ExtResource("51_cf8r5")
-unlock_method_name = "get_cranker"
-price = 150
-itemname = "Auto-Cranker"
-description = " A mechanical arm that cranks the slot lever a few times after stepping away"
+[node name="outline" type="Sprite2D" parent="Shop/Wall/coolhat"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("46_im84i")
 
-[node name="funnel" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(246, 77)
-texture = ExtResource("46_tqmsi")
-unlock_method_name = "get_funnel"
-price = 45
-itemname = "Coin Funnel"
-description = "Restocks your slot machine. Less time putting coins in, more time spinning!"
+[node name="pager" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(74, 126)
+texture = ExtResource("46_8fcgb")
 
-[node name="conveyor" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(123, 131)
+[node name="outline" type="Sprite2D" parent="Shop/Wall/pager"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("46_8fcgb")
+
+[node name="doughbot" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(234, 77)
+texture = ExtResource("48_tqmsi")
+
+[node name="outline" type="Sprite2D" parent="Shop/Wall/doughbot"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("48_tqmsi")
+
+[node name="conveyor" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(176, 69)
 texture = ExtResource("49_p3r3h")
-unlock_method_name = "get_conveyor"
-price = 400
-itemname = "Conveyor Belt"
-description = "A conveyor that connects the inputs and outputs from each kitchen station"
 
-[node name="fancyoven" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(110, 55)
-texture = ExtResource("48_p3r3h")
-unlock_method_name = "get_fancy_oven"
-price = 350
-itemname = "INFERNOTRON"
-description = "An industrial oven that bakes for the perfect duration & allows conveyor input"
+[node name="outline" type="Sprite2D" parent="Shop/Wall/conveyor"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("49_p3r3h")
 
-[node name="cigarettes" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(116, 94)
-texture = ExtResource("48_p3r3h")
-unlock_method_name = "get_cigarettes"
-price = 10
-itemname = "Cigarettes (Consumable)"
-description = "Prevents your luck from being consumed one time after binge gambling."
+[node name="hopper" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(128, 61)
+texture = ExtResource("50_wgpx8")
+
+[node name="outline" type="Sprite2D" parent="Shop/Wall/hopper"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("50_wgpx8")
+
+[node name="cranker" type="Sprite2D" parent="Shop/Wall"]
+position = Vector2(239, 122)
+texture = ExtResource("51_cf8r5")
+
+[node name="outline" type="Sprite2D" parent="Shop/Wall/cranker"]
+visible = false
+material = ExtResource("44_8fcgb")
+texture = ExtResource("51_cf8r5")
 
 [node name="Walt" type="Sprite2D" parent="Shop"]
 texture_filter = 1
@@ -1710,7 +1709,7 @@ stream = ExtResource("47_w6oi7")
 volume_db = -10.0
 pitch_scale = 2.0
 
-[node name="Hand" type="Sprite2D" parent="Shop" node_paths=PackedStringArray("player")]
+[node name="Hand" type="Sprite2D" parent="Shop"]
 z_index = 2
 texture_filter = 1
 texture = ExtResource("66_cf8r5")
@@ -1718,7 +1717,6 @@ offset = Vector2(6, 24)
 hframes = 3
 frame = 1
 script = ExtResource("67_ltxvx")
-player = NodePath("../../World/Generic/CharacterBody2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Shop/Hand"]
 libraries = {
@@ -1727,20 +1725,6 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Shop/Hand"]
 stream = ExtResource("68_pf47n")
-
-[node name="taparea" type="Area2D" parent="Shop"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/taparea"]
-position = Vector2(185.5, 111.5)
-shape = SubResource("RectangleShape2D_cf8r5")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shop/taparea"]
-position = Vector2(182.25, 159.5)
-shape = SubResource("RectangleShape2D_ltxvx")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shop/taparea"]
-position = Vector2(181.5, 137.75)
-shape = SubResource("RectangleShape2D_pf47n")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("18_sv1m6")
@@ -1853,5 +1837,5 @@ autowrap_mode = 3
 [connection signal="body_exited" from="World/Bakery/Placement3Area" to="World/Generic/CharacterBody2D" method="_on_placement_3_area_body_exited"]
 [connection signal="body_entered" from="World/Shop/Area2D" to="World/Shop/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="World/Shop/Area2D" to="World/Shop/Area2D" method="_on_body_exited"]
-[connection signal="mouse_entered" from="Shop/taparea" to="Shop/Hand" method="_on_taparea_mouse_entered"]
-[connection signal="mouse_exited" from="Shop/taparea" to="Shop/Hand" method="_on_taparea_mouse_exited"]
+[connection signal="mouse_entered" from="Shop/Wall/boots/Area2D" to="Shop/Wall/boots" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Shop/Wall/boots/Area2D" to="Shop/Wall/boots" method="_on_area_2d_mouse_exited"]

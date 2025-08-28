@@ -3,6 +3,7 @@ extends CanvasLayer
 var timer: float = 0
 
 func _ready() -> void:
+	return
 	visible = false
 
 func _process(delta: float) -> void:

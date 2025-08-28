@@ -1,29 +1,41 @@
-extends Area2D
+extends Sprite2D
 
-@export var variable_name: String
-@export var player: Player
+@export var unlock_method_name: String
+@onready var player: Player = $"../../../World/Generic/CharacterBody2D"
 @export var price: int
 
 @export var itemname: String = "item"
 @export var description: String = "description"
 
 func _ready() -> void:
-	get_node("CollisionShape2D").disabled = false
+	var shape: Shape2D = $Area2D/CollisionShape2D.shape
+	shape.size = Vector2(texture.get_size())
+	get_node("outline").texture = texture
+
+func hover_item(value: bool) -> void:
+	if value:
+		var item: String = str(itemname)
+		var desc: String = str(description)
+		var price: String = str(price)
+		player.toast("{0} coins: {1}\n{2}".format([price, item, desc]), 1000)
+		get_node("outline").visible = true
+		$"../../Hand".item = self
+	else:
+		$"../../Hand".item = null
+		player.toast("", 0.01)
+		get_node("outline").visible = false
 
 func buy() -> void:
-	if Global.money >= price:
-		visible = false
-		Global.money -= price
-		player.unlock_item(variable_name)
-		get_node("MoneyNoise").play()
-		get_node("CollisionShape2D").disabled = true
-	else:
-		get_node("BrokeNoise").play()
-	
-func _on_body_exited(body: Node2D) -> void:
-	if body is Player:
-		player.shop_area = null
-		
-func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		player.shop_area = self
+	$AudioStreamPlayer.play()
+	visible = false
+	get_node("Area2D").monitoring = false
+	get_node("Area2D").monitorable = false
+
+func cantafford() -> void:
+	$CantAfford.play()
+
+func _on_area_2d_mouse_entered() -> void:
+	hover_item(true)
+
+func _on_area_2d_mouse_exited() -> void:
+	hover_item(false)

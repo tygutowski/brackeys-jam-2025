@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://drdb1em37afb5"]
+
+[ext_resource type="Texture2D" uid="uid://d33tmr0cts60b" path="res://art/boot-icon.png" id="1_6m5p0"]
+[ext_resource type="Script" uid="uid://6ofbnx8cbagd" path="res://scenes/ItemUnlock.gd" id="2_k68pu"]
+[ext_resource type="Material" uid="uid://p4ogmapp3tyn" path="res://outline_material.tres" id="3_tqdpn"]
+[ext_resource type="AudioStream" uid="uid://cssjpp5t338f1" path="res://audio/cash-register-chaching.mp3" id="4_k68pu"]
+[ext_resource type="AudioStream" uid="uid://ddg3jy573ld6k" path="res://audio/cantafford.mp3" id="5_tqdpn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5fqt"]
+size = Vector2(2, 1.5)
+
+[node name="boots" type="Sprite2D"]
+texture = ExtResource("1_6m5p0")
+script = ExtResource("2_k68pu")
+
+[node name="outline" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("3_tqdpn")
+texture = ExtResource("1_6m5p0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_g5fqt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_k68pu")
+
+[node name="CantAfford" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_tqdpn")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

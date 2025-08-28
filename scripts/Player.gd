@@ -31,13 +31,13 @@ var movement_speed: float
 
 var has_timbs: bool = false # runs faster
 var has_pager: bool = false # pages when customer enters
-var has_decent_oven: bool = false # oven cooks at a flat rate
-var has_employee_for: int = -1 # employee working for X amount of customers
-var has_painting_2 # painting for store
-var has_painting_3 # painting for store
+var has_doughbot: bool = false # automatically mixes and portions dough
 var has_cool_hat # unlocks vip lounge
-var has_really_loud_egg_timer # beeps when mixer or oven is done
-var has_clock_mounted_on_casino_wall
+var has_cranker # cranks slot machine a few times while you're gone
+var has_funnel: bool = false # automagically puts plays into machine
+var has_conveyor: bool = false # moves ingredients from one place to another
+var has_fancy_oven: bool = false # automatically cooks food
+
 @export var shop_hud: CanvasLayer
 var customer_stack: Array = []
 var held_biscuit: Biscuit = null
@@ -59,6 +59,31 @@ var place1_item: Biscuit = null
 var place2_item: Biscuit = null
 var place3_item: Biscuit = null
 
+func get_timbs() -> void:
+	has_timbs = true
+	
+func get_pager() -> void:
+	has_pager = true
+	
+func get_doughbot() -> void:
+	has_doughbot = true
+	
+func get_cool_hat() -> void:
+	has_cool_hat = true
+	
+func get_cranker() -> void:
+	has_cranker = true
+	 
+func get_funnel() -> void:
+	has_funnel = true
+	
+func get_conveyor() -> void:
+	has_conveyor = true
+	
+func get_fancy_oven() -> void:
+	has_fancy_oven = true
+	
+
 func _ready() -> void:
 	slot_machine_hud.visible = false
 	camera.global_position = bakery.camera_pos
@@ -74,14 +99,8 @@ func unlock_item(variable_name: String) -> void:
 func _physics_process(_delta: float) -> void:
 	# if youre within range of slot machines
 	# then you can access them
-	if shop_area:
-			var item: String = str(shop_area.itemname)
-			var desc: String = str(shop_area.description)
-			var price: String = str(shop_area.price)
-			toast("{0} coins: {1}\n{2}".format([price, item, desc]), 0.05)
+
 	if Input.is_action_just_pressed("interact"):
-		if shop_area:
-			shop_area.buy()
 		if within_slot_range:
 			open_slot_machine()
 		if within_shop_range:
@@ -176,6 +195,8 @@ func _physics_process(_delta: float) -> void:
 	# movement logic. i use base_movement_speed in case we
 	# add boots or movement speed upgrades later
 	movement_speed = base_movement_speed
+	if has_timbs:
+		movement_speed + 15.0
 	var input: Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
 	velocity = input * movement_speed
 	# close slots/shop/etc

@@ -5,7 +5,7 @@ var accelerator: float = 0
 var money_counter: int = 0
 var money_counter_total: int = -1
 func _process(delta: float) -> void:
-	$HBoxContainer/Label.text = str(Global.money)
+	$MarginContainer/VBoxContainer/HBoxContainer/Label.text = str(Global.money)
 	if is_inf(timer):
 		timer = 0
 	if timer <= 0:

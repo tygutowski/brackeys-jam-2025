@@ -2,7 +2,7 @@ extends Area2D
 
 var in_use: bool = false
 var item_in_mixer: bool = false
-const MIX_TIME: float = 30
+const MIX_TIME: float = 3
 
 var biscuit: Biscuit = null
 
@@ -13,21 +13,26 @@ func _process(delta) -> void:
 		timer += delta
 		if timer >= MIX_TIME:
 			stop_mixer()
+		else:
+			get_node("Timer").text = str(max(0, int(MIX_TIME - timer) + 1))
 	else:
 		timer = 0
 
 func get_biscuit():
+	get_node("Timer").visible = false
 	var biscuit_to_return: Biscuit = biscuit
 	biscuit = null
 	item_in_mixer = false
 	return biscuit_to_return
 
 func stop_mixer():
-	biscuit = Biscuit.new()
-	$AnimationPlayer.stop()
+	get_node("Timer").text = "DONE"
+	biscuit.stage = biscuit.stageEnum.RAW
+	$AnimationPlayer.play("off")
 	in_use = false
 
-func start_mixer():
+func start_mixer(new_biscuit):
+	biscuit = new_biscuit
 	$AnimationPlayer.play("mixing")
 	item_in_mixer = true
 	in_use = true

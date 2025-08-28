@@ -1,11 +1,42 @@
 extends Area2D
 
+var biscuit: Biscuit = null
+var in_use: bool = false
+const CUT_TIME: float = 6
+var timer: float = 0
+var item_in_cutter: bool = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _process(delta) -> void:
+	if biscuit != null:
+		if in_use:
+			print(biscuit.stage)
+			timer += delta
+			if timer >= CUT_TIME:
+				done_shaping_dough()
 
+func done_shaping_dough():
+	in_use = false
+	print("done shaping dough")
+	biscuit.stage = biscuit.stageEnum.SHAPED
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func get_biscuit():
+	$AnimationPlayer.play("take")
+	print("get biscuit")
+	item_in_cutter = false
+	var biscuit_to_return: Biscuit = biscuit
+	biscuit = null
+	return biscuit_to_return
+
+func shape_dough(new_biscuit: Biscuit = null) -> void:
+	$AnimationPlayer.play("shaping dough")
+	item_in_cutter = true
+	in_use = true
+	if new_biscuit != null:
+		print("using existing dough")
+		timer = 0
+		biscuit = new_biscuit
+
+func pause_shaping_dough() -> void:
+	if in_use:
+		$AnimationPlayer.pause()
+		in_use = false

@@ -10,6 +10,7 @@ var can_stop: bool = false
 var hand_on_one_cent_coin: bool = false
 var hand_on_three_cent_coin: bool = false
 var hand_on_seven_cent_coin: bool = false
+var mood_counter: int = 0
 
 var denomination_in_hand: int = 0
 
@@ -187,6 +188,16 @@ func _on_pull_area_mouse_entered() -> void:
 				get_parent().is_rigged = false
 			print(get_parent().is_rigged)
 			get_node("../AnimationPlayer").play("crank")
+			if Global.mood == 4:
+				get_node("../../World/Generic/CharacterBody2D").toast("Your luck is out! Bake something to raise your spirits (and odds of winning)", 5)
+			mood_counter += 1
+			if mood_counter >= 5:
+				$"../../UI/MarginContainer/VBoxContainer/Emotion".increase_mood()
+				mood_counter -= 5
+				if Global.mood == 3:
+					get_node("../../World/Generic/CharacterBody2D").toast("You feel your luck depleting, you should probably bake something soon", 5)
+				if Global.mood == 4:
+					get_node("../../World/Generic/CharacterBody2D").toast("Your luck is out! Bake something to raise your spirits (and odds of winning)", 5)
 			# normalize between .8 and 1.2
 
 func _on_cancel_area_mouse_exited() -> void:
@@ -211,6 +222,8 @@ func grab_coin(denomination: int) -> void:
 		denomination_in_hand = 1
 		$Coin1Sprite.visible = true
 	elif denomination == 5:
+		get_node("../CoinHover").pitch_scale = randf_range(0.8, 1.2)
+		get_node("../CoinHover").play()
 		denomination_in_hand = 5
 		$Coin3Sprite.visible = true
 	elif denomination == 7:

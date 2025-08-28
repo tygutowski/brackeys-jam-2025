@@ -1,17 +1,18 @@
-[gd_scene load_steps=51 format=3 uid="uid://df56b7s6avaf8"]
+[gd_scene load_steps=52 format=3 uid="uid://df56b7s6avaf8"]
 
 [ext_resource type="PackedScene" uid="uid://cl21kvpvqikjt" path="res://scenes/Spinner.tscn" id="1_00bh1"]
 [ext_resource type="Script" uid="uid://dyiu38wi45so8" path="res://scripts/SlotMachineGUI.gd" id="1_v24rf"]
 [ext_resource type="Texture2D" uid="uid://x76wo4fc18cn" path="res://art/slot_machine_background.png" id="2_fb1dh"]
 [ext_resource type="AudioStream" uid="uid://c1p33sxlavhjy" path="res://audio/crank.mp3" id="2_k017t"]
 [ext_resource type="Texture2D" uid="uid://bauacno634aay" path="res://art/crank_tileset.png" id="3_44m3l"]
-[ext_resource type="AudioStream" uid="uid://bvyrc22jf1gjv" path="res://audio/coin-jingle.mp3" id="3_ck8s2"]
 [ext_resource type="Texture2D" uid="uid://ccp6dtd4og2iy" path="res://art/hand.png" id="4_7pjsk"]
 [ext_resource type="Texture2D" uid="uid://75x8oolcm5ob" path="res://art/coin_mechanism.png" id="4_qpxbj"]
+[ext_resource type="AudioStream" uid="uid://dm11v5eimeme1" path="res://audio/coininsert.mp3" id="5_b36n1"]
 [ext_resource type="Script" uid="uid://12cp2g5i4y8t" path="res://scripts/HandCursor.gd" id="5_k50qd"]
 [ext_resource type="AudioStream" uid="uid://dolodnv3tbis4" path="res://audio/jackpot-win.mp3" id="5_rxyi5"]
 [ext_resource type="AudioStream" uid="uid://bsosco0dhkl5x" path="res://audio/tap.mp3" id="6_8q5i5"]
 [ext_resource type="Texture2D" uid="uid://6vdpoe5plvsy" path="res://art/slotmachine.png" id="6_rxyi5"]
+[ext_resource type="AudioStream" uid="uid://by6rks4bntb3r" path="res://audio/coinflip.mp3" id="6_sqd8s"]
 [ext_resource type="Texture2D" uid="uid://din3ods8h8q5h" path="res://art/coin_particle.png" id="7_2a1k5"]
 [ext_resource type="Texture2D" uid="uid://h54glqrkjgbo" path="res://art/stop_button_spritesheet.png" id="8_44m3l"]
 [ext_resource type="Texture2D" uid="uid://cs5p31nu480o4" path="res://art/3coin_particle.png" id="8_tjyh4"]
@@ -611,10 +612,17 @@ texture = ExtResource("19_p0x1c")
 
 [node name="CrankSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_k017t")
+volume_db = -10.0
 
 [node name="CoinInsert" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ck8s2")
+stream = ExtResource("5_b36n1")
 volume_db = -10.0
+max_polyphony = 5
+
+[node name="CoinHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_sqd8s")
+volume_db = -20.0
+max_polyphony = 5
 
 [node name="JackpotWin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_rxyi5")

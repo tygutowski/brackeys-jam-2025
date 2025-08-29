@@ -3,7 +3,8 @@ extends Sprite2D
 @export var unlock_method_name: String
 @onready var player: Player = $"../../../World/Generic/CharacterBody2D"
 @export var price: int
-
+var bought: bool = false
+@export var prereq: Sprite2D
 @export var itemname: String = "item"
 @export var description: String = "description"
 
@@ -26,6 +27,7 @@ func hover_item(value: bool) -> void:
 		get_node("outline").visible = false
 
 func buy() -> void:
+	bought = true
 	$AudioStreamPlayer.play()
 	visible = false
 	get_node("Area2D").monitoring = false

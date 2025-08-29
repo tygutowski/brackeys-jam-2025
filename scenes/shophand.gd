@@ -10,7 +10,9 @@ func _process(delta: float) -> void:
 		if can_tap:
 			$AnimationPlayer.play("tap")
 		if item != null:
-			if Global.money >= item.price:
+			if not item.prereq.bought:
+				item.cantafford()
+			elif Global.money >= item.price:
 				Global.money -= item.price
 				player.unlock_item(item.unlock_method_name)
 				item.buy()

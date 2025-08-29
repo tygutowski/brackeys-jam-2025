@@ -6,7 +6,8 @@ class_name Player
 @export var casino: Node2D
 @export var shop: Node2D
 
-
+@export var doughbot: Node2D
+var in_doughbot_input_area: bool = false
 var ingredient_price: int = 0
 @onready var mixer = $"../../Bakery/MixerArea"
 @onready var register = $"../../Bakery/RegisterArea"
@@ -71,6 +72,8 @@ func get_doughbot() -> void:
 	$"../../Bakery/CuttingArea".visible = false
 	$"../../Bakery/MixerArea/CollisionShape2D".disabled = true
 	$"../../Bakery/CuttingArea/CollisionShape2D".disabled = true
+	$"../../Bakery/AudoughmaticMachine/Output/CollisionShape2D".disabled = false
+	$"../../Bakery/AudoughmaticMachine/Input/CollisionShape2D".disabled = false
 	$"../../Bakery/AudoughmaticMachine".visible = true
 	
 func get_cool_hat() -> void:
@@ -82,15 +85,21 @@ func get_cranker() -> void:
 func get_funnel() -> void:
 	has_funnel = true
 	
-func get_conveyor() -> void:
-	has_conveyor = true
-	
 func get_fancy_oven() -> void:
+	$"../../Bakery/Fancyoven".visible = true
+	$"../../Bakery/OvenArea".visible = false
+	$"../../Bakery/OvenArea/CollisionShape2D".disabled = true
+	$"../../Bakery/AudoughmaticMachine/Output".monitoring = false
 	has_fancy_oven = true
 	
-
 func _ready() -> void:
-	get_doughbot()
+	$"../../Bakery/AudoughmaticMachine".visible = false
+	$"../../Bakery/AudoughmaticMachine/Output/CollisionShape2D".disabled = true
+	$"../../Bakery/AudoughmaticMachine/Input/CollisionShape2D".disabled = true
+	$"../../Bakery/Fancyoven".visible = false
+	
+	#dwget_doughbot()
+	#get_fancy_oven()
 	slot_machine_hud.visible = false
 	camera.global_position = bakery.camera_pos
 	outside.exited()
@@ -107,6 +116,10 @@ func _physics_process(_delta: float) -> void:
 	# then you can access them
 
 	if Input.is_action_just_pressed("interact"):
+		if in_doughbot_area:
+			grab_tray_from_doughbot()
+		elif in_doughbot_input_area:
+			put_ingredients_in_doughbot()
 		if within_slot_range:
 			open_slot_machine()
 		if within_shop_range:
@@ -130,7 +143,9 @@ func _physics_process(_delta: float) -> void:
 		if in_placement3_area:
 			place(3)
 	if not toasting:
-		if in_doughbot_area and $"../../Bakery/AudoughmaticMachine".biscuit != null:
+		if in_doughbot_input_area and not $"../../Bakery/AudoughmaticMachine".on:
+			$"../../../UI/InteractPrompt".text = "Insert ingredients"
+		elif in_doughbot_area and $"../../Bakery/AudoughmaticMachine".biscuit != null:
 			$"../../../UI/InteractPrompt".text = "Take tray"
 		elif within_shop_range and not shop_hud.visible:
 			$"../../../UI/InteractPrompt".text = "Open shop"
@@ -323,6 +338,9 @@ func use_cutter() -> void:
 			toast("You can't shape ingredients, try mixing it into dough first")
 	
 func use_register() -> void:
+	if has_fancy_oven:
+		register.cash_out()
+		return
 	if held_biscuit == null:
 		toast("You aren't holding anything")
 		return
@@ -382,6 +400,7 @@ func use_oven() -> void:
 	if oven.item_in_oven:
 		if held_biscuit == null:
 			held_biscuit = oven.get_biscuit()
+			update_hand()
 			return
 		else:
 			toast("There's already something in the oven")
@@ -525,7 +544,7 @@ func set_place_item(zone: int) -> void:
 				6: item_sprite.texture = overcooked_icon   # overcooked
 				4: item_sprite.texture = burnt_icon        # burnt
 				_: item_sprite.texture = cooked_icon
-
+	
 
 func update_hand() -> void:
 	if held_biscuit == null:
@@ -552,3 +571,29 @@ func _on_doughbot_2d_body_entered(body: Node2D) -> void:
 func _on_doughbot_2d_body_exited(body: Node2D) -> void:
 	if body is Player:
 		in_doughbot_area = false
+
+func _on_input_doughbot_2d_body_entered(body: Node2D) -> void:
+	if body is Player:
+		in_doughbot_input_area = true
+
+func _on_input_doughbot_2d_body_exited(body: Node2D) -> void:
+	if body is Player:
+		in_doughbot_input_area = false
+
+func put_ingredients_in_doughbot():
+	if held_biscuit == null:
+		toast("Your hands are empty")
+		return
+	if held_biscuit.stage == held_biscuit.stageEnum.INGREDIENTS:
+		held_biscuit = null
+		doughbot.start()
+	elif held_biscuit.stage != held_biscuit.stageEnum.INGREDIENTS:
+		toast("You must insert ingredients into the machine")
+	update_hand()
+
+func grab_tray_from_doughbot():
+	if held_biscuit == null:
+		held_biscuit = doughbot.grab_tray()
+	else:
+		toast("Your hands are full")
+	update_hand()

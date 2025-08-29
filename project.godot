@@ -18,9 +18,17 @@ config/name="brackeys-jam-2025"
 run/main_scene="uid://dfa7cveux5qrs"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
+[audio]
+
+general/default_playback_type.web=0
+
 [autoload]
 
 Global="*res://Global.gd"
+
+[debug]
+
+gdscript/warnings/integer_division=0
 
 [display]
 

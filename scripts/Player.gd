@@ -20,7 +20,7 @@ var t: Timer = null
 @export var slot_machine_hud: CanvasLayer
 var base_movement_speed: float = 80.0
 var movement_speed: float
-
+var in_doughbot_area: bool = false
 @export var empty_icon: Texture2D
 @export var ingredients_icon: Texture2D
 @export var dough_icon: Texture2D
@@ -67,6 +67,11 @@ func get_pager() -> void:
 	
 func get_doughbot() -> void:
 	has_doughbot = true
+	$"../../Bakery/MixerArea".visible = false
+	$"../../Bakery/CuttingArea".visible = false
+	$"../../Bakery/MixerArea/CollisionShape2D".disabled = true
+	$"../../Bakery/CuttingArea/CollisionShape2D".disabled = true
+	$"../../Bakery/AudoughmaticMachine".visible = true
 	
 func get_cool_hat() -> void:
 	has_cool_hat = true
@@ -85,6 +90,7 @@ func get_fancy_oven() -> void:
 	
 
 func _ready() -> void:
+	get_doughbot()
 	slot_machine_hud.visible = false
 	camera.global_position = bakery.camera_pos
 	outside.exited()
@@ -124,7 +130,9 @@ func _physics_process(_delta: float) -> void:
 		if in_placement3_area:
 			place(3)
 	if not toasting:
-		if within_shop_range and not shop_hud.visible:
+		if in_doughbot_area and $"../../Bakery/AudoughmaticMachine".biscuit != null:
+			$"../../../UI/InteractPrompt".text = "Take tray"
+		elif within_shop_range and not shop_hud.visible:
 			$"../../../UI/InteractPrompt".text = "Open shop"
 		elif within_slot_range and not slot_machine_hud.visible:
 			$"../../../UI/InteractPrompt".text = "Play slots"
@@ -535,3 +543,12 @@ func update_hand() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
+
+
+func _on_doughbot_2d_body_entered(body: Node2D) -> void:
+	if body is Player:
+		in_doughbot_area = true
+
+func _on_doughbot_2d_body_exited(body: Node2D) -> void:
+	if body is Player:
+		in_doughbot_area = false

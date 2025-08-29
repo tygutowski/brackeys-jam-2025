@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=4 uid="uid://dfa7cveux5qrs"]
+[gd_scene load_steps=145 format=4 uid="uid://dfa7cveux5qrs"]
 
 [ext_resource type="Texture2D" uid="uid://d30uwd8shcjfy" path="res://art/custom-tilemap.png" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://2kedd4titwns" path="res://scripts/Player.gd" id="2_u44n3"]
@@ -50,7 +50,6 @@
 [ext_resource type="Texture2D" uid="uid://rw2qaxlvvxwi" path="res://art/fridge.png" id="37_7f8l2"]
 [ext_resource type="Texture2D" uid="uid://bj57cnqkem4qg" path="res://art/raw_dough_icon.png" id="37_xypbv"]
 [ext_resource type="Texture2D" uid="uid://27u2un4cjs87" path="res://art/fancyoven.png" id="38_n4ira"]
-[ext_resource type="PackedScene" uid="uid://bsnausavxatmi" path="res://scenes/Customer.tscn" id="39_n4ira"]
 [ext_resource type="Script" path="res://scenes/shopzone.gd" id="40_3ugab"]
 [ext_resource type="Texture2D" uid="uid://ch56gtpadfoxw" path="res://art/walt_small.png" id="41_d6agh"]
 [ext_resource type="Script" path="res://scenes/shop.gd" id="42_kg1ax"]
@@ -1236,9 +1235,9 @@ animations = [{
 size = Vector2(16, 10)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xypbv"]
-vertices = PackedVector2Array(574, 178, 574, 223, 527, 223, 447, 178, 527, 238, 497, 238, 497, 223, 447, 223)
+vertices = PackedVector2Array(574, 178, 574, 221, 525, 221, 447, 178, 525, 237, 500, 237, 500, 221, 447, 221)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 2, 6), PackedInt32Array(3, 6, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(437, 168, 584, 168, 584, 233, 537, 233, 537, 248, 487, 248, 487, 233, 437, 233)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(437, 168, 584, 168, 584, 231, 535, 231, 535, 247, 490, 247, 490, 231, 437, 231)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_attvq"]
 size = Vector2(12, 10)
@@ -1460,7 +1459,7 @@ tile_set = SubResource("TileSet_t88pq")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="World/Generic" node_paths=PackedStringArray("outside", "bakery", "casino", "shop", "doughbot", "camera", "slot_machine_hud", "shop_hud")]
 z_index = 1
-position = Vector2(479, 204)
+position = Vector2(537, 204)
 script = ExtResource("2_u44n3")
 outside = NodePath("../../Outside")
 bakery = NodePath("../../Bakery")
@@ -1578,8 +1577,9 @@ lifetime = 5.0
 preprocess = 5.0
 process_material = SubResource("ParticleProcessMaterial_0mevm")
 
-[node name="Bakery" type="Node2D" parent="World"]
+[node name="Bakery" type="Node2D" parent="World" node_paths=PackedStringArray("queue_slots")]
 script = ExtResource("8_lvtmh")
+queue_slots = [NodePath("CustomerQueueSpots/Spot1"), NodePath("CustomerQueueSpots/Spot2"), NodePath("CustomerQueueSpots/Spot3"), NodePath("CustomerQueueSpots/Spot4")]
 
 [node name="BakeryOutDoor" parent="World/Bakery" node_paths=PackedStringArray("target_room") instance=ExtResource("4_sb48q")]
 position = Vector2(513, 234)
@@ -1892,18 +1892,25 @@ position = Vector2(-13, 43)
 shape = SubResource("RectangleShape2D_xypbv")
 
 [node name="AddCustomerTimer" type="Timer" parent="World/Bakery"]
+one_shot = true
 autostart = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World/Bakery"]
 navigation_polygon = SubResource("NavigationPolygon_xypbv")
 
-[node name="Spot1" type="Node2D" parent="World/Bakery"]
+[node name="CustomerQueueSpots" type="Node2D" parent="World/Bakery"]
+
+[node name="Spot1" type="Node2D" parent="World/Bakery/CustomerQueueSpots"]
 position = Vector2(476, 180)
 
-[node name="Customer" parent="World/Bakery" instance=ExtResource("39_n4ira")]
-position = Vector2(497, 210)
-motion_mode = 1
-speed = 10.0
+[node name="Spot2" type="Node2D" parent="World/Bakery/CustomerQueueSpots"]
+position = Vector2(476, 190)
+
+[node name="Spot3" type="Node2D" parent="World/Bakery/CustomerQueueSpots"]
+position = Vector2(477, 201)
+
+[node name="Spot4" type="Node2D" parent="World/Bakery/CustomerQueueSpots"]
+position = Vector2(478, 214)
 
 [node name="Casino" type="Node2D" parent="World"]
 script = ExtResource("9_yyih5")
@@ -2200,7 +2207,6 @@ position = Vector2(181.5, 137.75)
 shape = SubResource("RectangleShape2D_pf47n")
 
 [node name="UI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("18_sv1m6")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]

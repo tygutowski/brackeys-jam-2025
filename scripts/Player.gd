@@ -338,8 +338,11 @@ func use_cutter() -> void:
 			toast("You can't shape ingredients, try mixing it into dough first")
 	
 func use_register() -> void:
-	if has_fancy_oven:
-		register.cash_out()
+	if has_fancy_oven || held_biscuit:
+		var success = register.cash_out(held_biscuit)
+		if success && held_biscuit:
+			held_biscuit = null
+			update_hand()
 		return
 	if held_biscuit == null:
 		toast("You aren't holding anything")

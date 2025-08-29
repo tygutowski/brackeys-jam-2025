@@ -4,7 +4,7 @@ extends Room
 
 var customer_scene: PackedScene = preload("res://scenes/Customer.tscn")
 var camera_pos: Vector2 = Vector2(544, 152)
-var customer_stack: Array[Customer] = []
+@export var customer_stack: Array[Customer] = []
 @onready var max_customers: int = queue_slots.size()
 
 

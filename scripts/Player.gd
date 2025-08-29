@@ -338,11 +338,8 @@ func use_cutter() -> void:
 			toast("You can't shape ingredients, try mixing it into dough first")
 	
 func use_register() -> void:
-	if has_fancy_oven || held_biscuit:
-		var success = register.cash_out(held_biscuit)
-		if success && held_biscuit:
-			held_biscuit = null
-			update_hand()
+	if has_fancy_oven:
+		register.cash_out()
 		return
 	if held_biscuit == null:
 		toast("You aren't holding anything")
@@ -359,8 +356,11 @@ func use_register() -> void:
 			if held_biscuit.quality < 0.4:
 				toast("These biscuits are raw, put them back in the oven")
 				return
-			if customer_stack.is_empty():
+			if  $"../../Bakery".customer_stack.is_empty():
 				toast("There are no customers to buy your biscuits")
+				return
+			elif not $"../../Bakery".is_customer_at_register():
+				toast("Give them a moment, their hips aren't what they used to be")
 				return
 			register.cash_out(held_biscuit)
 			held_biscuit = null

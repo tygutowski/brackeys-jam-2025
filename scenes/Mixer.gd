@@ -2,7 +2,7 @@ extends Area2D
 
 var in_use: bool = false
 var item_in_mixer: bool = false
-const MIX_TIME: float = 3
+const MIX_TIME: float = 20
 
 var biscuit: Biscuit = null
 

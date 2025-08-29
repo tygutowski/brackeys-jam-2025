@@ -108,8 +108,9 @@ func _ready() -> void:
 	bakery.entered()
 
 func unlock_item(variable_name: String) -> void:
-	var variable = get(variable_name)
-	variable = true
+	print("unlocking : '" + variable_name + "'")
+	var callable = Callable(self, variable_name)
+	callable.call()
 
 func _physics_process(_delta: float) -> void:
 	# if youre within range of slot machines
@@ -339,7 +340,7 @@ func use_cutter() -> void:
 	
 func use_register() -> void:
 	if has_fancy_oven:
-		register.cash_out()
+		register.cash_out(null)
 		return
 	if held_biscuit == null:
 		toast("You aren't holding anything")

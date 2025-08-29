@@ -1,9 +1,9 @@
 extends CharacterBody2D
 class_name Customer
 
-@export var speed : float = 5
+@onready var speed : float = randi_range(4,6)
 @export var movement_target_position: Vector2
-
+var player: Player = null
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 #var end_goal: Vector2 = starting_pos
@@ -12,6 +12,7 @@ var leaving: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player")
 	if not movement_target_position:
 		movement_target_position = global_position
 	# These values need to be adjusted for the actor's speed
@@ -28,6 +29,10 @@ func actor_setup():
 	navigation_agent.target_position = movement_target_position
 
 func _physics_process(_delta: float) -> void:
+	if global_position.y <= player.global_position.y + 6:
+		$Sprite2D.z_index = 0
+	else:
+		$Sprite2D.z_index = 1
 	var direction : Vector2
 	if navigation_agent.is_navigation_finished():
 		direction = Vector2.ZERO

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var timer: float = 0
-
+var anim_list: Array = ["blink", "move_eyes", "smile"]
 func _ready() -> void:
 	return
 	visible = false
@@ -15,10 +15,9 @@ func _process(delta: float) -> void:
 	timer -= delta
 
 func walt_do_something() -> void:
-	print("walt do something")
 	var anim_player: AnimationPlayer = $WaltAnimationPlayer
-	var list = anim_player.get_animation_list()
-	anim_player.play(list[randi() % list.size()])
+
+	anim_player.play(anim_list[randi() % anim_list.size()])
 
 func pick_random_hat() -> void:
 	for child in $Walt.get_child(0).get_children():

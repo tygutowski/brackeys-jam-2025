@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=4 uid="uid://dfa7cveux5qrs"]
+[gd_scene load_steps=146 format=4 uid="uid://dfa7cveux5qrs"]
 
 [ext_resource type="Texture2D" uid="uid://d30uwd8shcjfy" path="res://art/custom-tilemap.png" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://2kedd4titwns" path="res://scripts/Player.gd" id="2_u44n3"]
@@ -27,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://bdjeq011utj68" path="res://art/grandma1.png" id="14_a8wo8"]
 [ext_resource type="AudioStream" uid="uid://dvr3gwxvcyqfj" path="res://audio/store doorbell.mp3" id="14_qjyg3"]
 [ext_resource type="Texture2D" uid="uid://bnewq4eyo51jc" path="res://art/pottedplant1.png" id="15_attvq"]
-[ext_resource type="AudioStream" uid="uid://mo1rd6w0vkt" path="res://audio/city ambience.mp3" id="16_4fypl"]
 [ext_resource type="Script" uid="uid://bkaage6epvfb7" path="res://scenes/Register.gd" id="16_426vi"]
 [ext_resource type="Script" uid="uid://bweew86xs20ha" path="res://scenes/Mixer.gd" id="17_naigu"]
 [ext_resource type="Texture2D" uid="uid://cl2oom2cxstdi" path="res://art/biscuit_tray_spritesheet.png" id="18_426vi"]
@@ -913,7 +912,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -925,7 +924,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1506,6 +1505,10 @@ position = Vector2(895, 152)
 [node name="Outside" type="Node2D" parent="World"]
 script = ExtResource("5_gwjdr")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Outside"]
+stream = ExtResource("11_qjyg3")
+autoplay = true
+
 [node name="BakeryInDoor" parent="World/Outside" node_paths=PackedStringArray("target_room") instance=ExtResource("4_sb48q")]
 position = Vector2(103, 190)
 current_room = "outside"
@@ -1574,10 +1577,6 @@ texture = ExtResource("9_cpsxm")
 lifetime = 5.0
 preprocess = 5.0
 process_material = SubResource("ParticleProcessMaterial_0mevm")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Outside"]
-stream = ExtResource("16_4fypl")
-autoplay = true
 
 [node name="Bakery" type="Node2D" parent="World" node_paths=PackedStringArray("queue_slots")]
 script = ExtResource("8_lvtmh")
@@ -1658,6 +1657,8 @@ z_index = 1
 texture_filter = 1
 position = Vector2(495, 158)
 texture = ExtResource("4_jbgew")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Bakery/RegisterArea"]
 
 [node name="GarbageArea" type="Area2D" parent="World/Bakery"]
 position = Vector2(166, 18)
@@ -1816,12 +1817,10 @@ centered = false
 [node name="Node2D" type="Node2D" parent="World/Bakery/Fancyoven"]
 
 [node name="raw" type="Sprite2D" parent="World/Bakery/Fancyoven/Node2D"]
-visible = false
 z_index = -1
 texture = ExtResource("6_6h74c")
 
 [node name="cooked" type="Sprite2D" parent="World/Bakery/Fancyoven/Node2D"]
-visible = false
 z_index = -1
 texture = ExtResource("7_pn7ev")
 
@@ -2009,7 +2008,6 @@ shape = SubResource("RectangleShape2D_3pold")
 visible = false
 
 [node name="Shop" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("42_kg1ax")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shop"]
@@ -2025,15 +2023,14 @@ texture = ExtResource("42_o5b2d")
 centered = false
 
 [node name="timbs" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-z_index = 1
-position = Vector2(32, 178)
+position = Vector2(81, 69)
 unlock_method_name = "get_timbs"
 price = 40
 itemname = "Timberlands"
 description = "Gets you to and from the slot machines quicker"
 
 [node name="pager" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(228, 139)
+position = Vector2(234, 128)
 texture = ExtResource("46_8fcgb")
 unlock_method_name = "get_pager"
 price = 70
@@ -2041,16 +2038,15 @@ itemname = "Pager"
 description = "Notifies you when a customer enters the store"
 
 [node name="doughbot" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-z_index = 1
-position = Vector2(288, 175)
+position = Vector2(72, 124)
 texture = ExtResource("48_tqmsi")
 unlock_method_name = "get_doughbot"
 price = 300
-itemname = "Au Dough Matic"
+itemname = "Doughbot 7000"
 description = "A large machine that automatically mixes and forms dough balls."
 
 [node name="coolhat" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(95, 63)
+position = Vector2(200, 62)
 texture = ExtResource("46_im84i")
 unlock_method_name = "get_cool_hat"
 price = 500
@@ -2058,7 +2054,7 @@ itemname = "Cool Hat"
 description = "A really cool hat. Women will want you, men will want to be you. "
 
 [node name="cranker" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(160, 63)
+position = Vector2(146, 77)
 texture = ExtResource("51_cf8r5")
 unlock_method_name = "get_cranker"
 price = 150
@@ -2066,25 +2062,24 @@ itemname = "Auto-Cranker"
 description = " A mechanical arm that cranks the slot lever a few times after stepping away"
 
 [node name="funnel" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(254, 65)
+position = Vector2(246, 77)
 texture = ExtResource("46_tqmsi")
 unlock_method_name = "get_funnel"
 price = 45
 itemname = "Coin Funnel"
-description = "Auto-restocks theq slot machine. Less time putting coins in, more time spinning!"
+description = "Restocks your slot machine. Less time putting coins in, more time spinning!"
 
 [node name="fancyoven" parent="Shop/Wall" node_paths=PackedStringArray("prereq") instance=ExtResource("44_n6lnq")]
-position = Vector2(55, 49)
+position = Vector2(110, 55)
 texture = ExtResource("48_p3r3h")
 unlock_method_name = "get_fancy_oven"
 price = 350
 prereq = NodePath("../doughbot")
-prereqtext = "Au-Dough-Matic"
-itemname = "Fancy Oven"
-description = "An automated oven"
+itemname = "INFERNOTRON (Prereq: Au-Dough-Matic)"
+description = "An industrial oven that bakes for the perfect duration & allows conveyor input"
 
 [node name="cigarettes" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(55, 121)
+position = Vector2(116, 94)
 texture = ExtResource("48_p3r3h")
 unlock_method_name = "get_cigarettes"
 price = 10
@@ -2092,7 +2087,7 @@ itemname = "Cigarettes (Consumable)"
 description = "Prevents your luck from being consumed one time after binge gambling."
 
 [node name="fakereviews" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
-position = Vector2(111, 126)
+position = Vector2(128, 126)
 texture = ExtResource("61_il60g")
 unlock_method_name = "get_fake_reviews"
 price = 100

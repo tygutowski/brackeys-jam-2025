@@ -9,6 +9,8 @@ load_path = "res://.godot/imported/grandma1.png-f41c7dc0462551aa5b0fe81c9cbe0449
 size = Vector2(7, 6.5)
 
 [node name="Customer" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_xvjni")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

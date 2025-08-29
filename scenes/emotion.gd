@@ -7,7 +7,7 @@ extends TextureRect
 @export var enraged: Texture = null
 
 func _ready() -> void:
-	set_mood(2)
+	set_mood(0)
 
 func increase_mood() -> void:
 	set_mood(clamp(Global.mood + 1, 0, 4))

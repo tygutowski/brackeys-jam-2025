@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsnausavxatmi"]
+
+[ext_resource type="Script" uid="uid://cl5snkdtrwcs7" path="res://scenes/customer.gd" id="1_xvjni"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bonrk"]
+load_path = "res://.godot/imported/grandma1.png-f41c7dc0462551aa5b0fe81c9cbe0449.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bov33"]
+size = Vector2(7, 6.5)
+
+[node name="Customer" type="CharacterBody2D"]
+script = ExtResource("1_xvjni")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, -6)
+texture = SubResource("CompressedTexture2D_bonrk")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -1.25)
+shape = SubResource("RectangleShape2D_bov33")

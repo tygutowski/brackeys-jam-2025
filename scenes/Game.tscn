@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=4 uid="uid://dfa7cveux5qrs"]
+[gd_scene load_steps=146 format=4 uid="uid://dfa7cveux5qrs"]
 
 [ext_resource type="Texture2D" uid="uid://d30uwd8shcjfy" path="res://art/custom-tilemap.png" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://2kedd4titwns" path="res://scripts/Player.gd" id="2_u44n3"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://bswj51tam3ku0" path="res://scripts/CasinoManager.gd" id="9_yyih5"]
 [ext_resource type="Texture2D" uid="uid://c53oebd7on4ac" path="res://art/mixer-spritesheet.png" id="11_hmewc"]
 [ext_resource type="AudioStream" uid="uid://bpchasxw184gq" path="res://audio/casinoaudio.mp3" id="11_qjyg3"]
-[ext_resource type="Script" uid="uid://bd6q8n31ydv6u" path="res://scenes/fridge.gd" id="12_cxum0"]
+[ext_resource type="Script" path="res://scenes/fridge.gd" id="12_cxum0"]
 [ext_resource type="Script" uid="uid://12ok5wom7iuu" path="res://scripts/ShopManager.gd" id="12_elkpi"]
 [ext_resource type="Script" uid="uid://b3g4qpfvriwv4" path="res://scenes/Oven.gd" id="13_1gdd5"]
 [ext_resource type="AudioStream" uid="uid://cjtxqhpc681sa" path="res://audio/store ambience.mp3" id="13_yyih5"]
@@ -41,7 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://cmt2odlt6dl2x" path="res://art/placement_zone.png" id="26_1fiys"]
 [ext_resource type="FontFile" uid="uid://d0rbbfcfvkckr" path="res://Pixellari.ttf" id="32_1gdd5"]
 [ext_resource type="Texture2D" uid="uid://chblt3dvcluyn" path="res://art/audoughmatic_machine.png" id="32_cf8r5"]
-[ext_resource type="Script" uid="uid://c1syt83c1wfp2" path="res://scenes/fancyoven.gd" id="33_8cbmg"]
+[ext_resource type="Script" path="res://scenes/fancyoven.gd" id="33_8cbmg"]
 [ext_resource type="Texture2D" uid="uid://dbje613vvprek" path="res://art/audoughmatic_back.png" id="33_pf47n"]
 [ext_resource type="Script" uid="uid://xhvnxrdx0hw" path="res://scenes/audoughmatic_machine.gd" id="33_xypbv"]
 [ext_resource type="Texture2D" uid="uid://m748ywbu3jkw" path="res://art/audoughmatic_glass.png" id="34_nj61y"]
@@ -50,15 +50,16 @@
 [ext_resource type="Texture2D" uid="uid://rw2qaxlvvxwi" path="res://art/fridge.png" id="37_7f8l2"]
 [ext_resource type="Texture2D" uid="uid://bj57cnqkem4qg" path="res://art/raw_dough_icon.png" id="37_xypbv"]
 [ext_resource type="Texture2D" uid="uid://27u2un4cjs87" path="res://art/fancyoven.png" id="38_n4ira"]
-[ext_resource type="Script" uid="uid://dc12ikywl8hhp" path="res://scenes/shopzone.gd" id="40_3ugab"]
+[ext_resource type="PackedScene" uid="uid://bsnausavxatmi" path="res://scenes/Customer.tscn" id="39_n4ira"]
+[ext_resource type="Script" path="res://scenes/shopzone.gd" id="40_3ugab"]
 [ext_resource type="Texture2D" uid="uid://ch56gtpadfoxw" path="res://art/walt_small.png" id="41_d6agh"]
-[ext_resource type="Script" uid="uid://bjvwntyegxxi4" path="res://scenes/shop.gd" id="42_kg1ax"]
+[ext_resource type="Script" path="res://scenes/shop.gd" id="42_kg1ax"]
 [ext_resource type="Texture2D" uid="uid://c1iq0gg5kvlce" path="res://art/shop_background.png" id="42_o5b2d"]
 [ext_resource type="Texture2D" uid="uid://bcqrpuhi1fx53" path="res://art/coin.png" id="43_0wf52"]
 [ext_resource type="Texture2D" uid="uid://c26parg7op8rb" path="res://art/counter.png" id="44_kg1ax"]
 [ext_resource type="PackedScene" uid="uid://drdb1em37afb5" path="res://Item.tscn" id="44_n6lnq"]
 [ext_resource type="Texture2D" uid="uid://hpr76iixppf4" path="res://art/clover4.png" id="45_3pold"]
-[ext_resource type="Script" uid="uid://cyjlldhb1yfd5" path="res://scenes/emotion.gd" id="45_xfjuk"]
+[ext_resource type="Script" path="res://scenes/emotion.gd" id="45_xfjuk"]
 [ext_resource type="Texture2D" uid="uid://dpqr6vulsacry" path="res://art/pager-icon.png" id="46_8fcgb"]
 [ext_resource type="Texture2D" uid="uid://ckh8ex4get4s" path="res://art/hat1.png" id="46_d6agh"]
 [ext_resource type="Texture2D" uid="uid://lojsg0lrvjuj" path="res://art/coolhat.png" id="46_im84i"]
@@ -899,6 +900,45 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2g6u"]
 size = Vector2(10, 10)
 
+[sub_resource type="Animation" id="Animation_il60g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/raw:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/cooked:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_8cbmg"]
 resource_name = "cook"
 length = 40.0
@@ -952,45 +992,6 @@ tracks/3/keys = {
 "args": [],
 "method": &"send_to_register"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_il60g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/raw:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/cooked:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_il60g"]
@@ -1233,6 +1234,11 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xypbv"]
 size = Vector2(16, 10)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xypbv"]
+vertices = PackedVector2Array(574, 178, 574, 223, 527, 223, 447, 178, 527, 238, 497, 238, 497, 223, 447, 223)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 2, 6), PackedInt32Array(3, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(437, 168, 584, 168, 584, 233, 537, 233, 537, 248, 487, 248, 487, 233, 437, 233)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_attvq"]
 size = Vector2(12, 10)
@@ -1885,6 +1891,20 @@ position = Vector2(72, 0)
 position = Vector2(-13, 43)
 shape = SubResource("RectangleShape2D_xypbv")
 
+[node name="AddCustomerTimer" type="Timer" parent="World/Bakery"]
+autostart = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World/Bakery"]
+navigation_polygon = SubResource("NavigationPolygon_xypbv")
+
+[node name="Spot1" type="Node2D" parent="World/Bakery"]
+position = Vector2(476, 180)
+
+[node name="Customer" parent="World/Bakery" instance=ExtResource("39_n4ira")]
+position = Vector2(497, 210)
+motion_mode = 1
+speed = 10.0
+
 [node name="Casino" type="Node2D" parent="World"]
 script = ExtResource("9_yyih5")
 
@@ -1974,11 +1994,6 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_3pold")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/Shop"]
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Shop"]
-texture_filter = 1
-position = Vector2(472, 173)
-texture = ExtResource("14_a8wo8")
 
 [node name="SlotMachine" parent="." instance=ExtResource("18_wuoie")]
 visible = false
@@ -2185,6 +2200,7 @@ position = Vector2(181.5, 137.75)
 shape = SubResource("RectangleShape2D_pf47n")
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("18_sv1m6")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
@@ -2297,6 +2313,7 @@ autowrap_mode = 3
 [connection signal="body_exited" from="World/Bakery/AudoughmaticMachine/Output" to="World/Generic/CharacterBody2D" method="_on_doughbot_2d_body_exited"]
 [connection signal="body_entered" from="World/Bakery/AudoughmaticMachine/Input" to="World/Generic/CharacterBody2D" method="_on_input_doughbot_2d_body_entered"]
 [connection signal="body_exited" from="World/Bakery/AudoughmaticMachine/Input" to="World/Generic/CharacterBody2D" method="_on_input_doughbot_2d_body_exited"]
+[connection signal="timeout" from="World/Bakery/AddCustomerTimer" to="World/Bakery" method="_on_add_customer_timer_timeout"]
 [connection signal="body_entered" from="World/Shop/Area2D" to="World/Shop/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="World/Shop/Area2D" to="World/Shop/Area2D" method="_on_body_exited"]
 [connection signal="mouse_entered" from="Shop/taparea" to="Shop/Hand" method="_on_taparea_mouse_entered"]

@@ -609,7 +609,6 @@ _data = {
 }
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u16xc"]
-load_path = "res://.godot/imported/win-rates.png-f93d6d92a8d8551ffad3d8a8c40e1a68.ctex"
 
 [node name="SlotMachine" type="CanvasLayer"]
 script = ExtResource("1_v24rf")

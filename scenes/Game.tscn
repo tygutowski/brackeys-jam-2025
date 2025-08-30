@@ -43,7 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://dll68bc1a3ywj" path="res://art/painting2.png" id="19_0bq3a"]
 [ext_resource type="FontFile" uid="uid://4jle2pqn3ok5" path="res://monopixel.otf" id="19_45i86"]
 [ext_resource type="Texture2D" uid="uid://c6xi2adcv6hjb" path="res://art/traystack.png" id="19_426vi"]
-[ext_resource type="Script" uid="uid://dixpermcmikhb" path="res://scenes/car_spawner.gd" id="19_0566t"]
+[ext_resource type="Script" path="res://scenes/car_spawner.gd" id="19_0566t"]
 [ext_resource type="Texture2D" uid="uid://cer3wow1re36a" path="res://art/garbage_can.png" id="19_kbe8o"]
 [ext_resource type="Texture2D" uid="uid://c364jnn2xdush" path="res://art/oven_microwave_spritesheet.png" id="20_ocgqw"]
 [ext_resource type="AudioStream" uid="uid://cssjpp5t338f1" path="res://audio/cash-register-chaching.mp3" id="25_4fypl"]
@@ -683,10 +683,10 @@ gravity = Vector3(0, -3, 0)
 alpha_curve = SubResource("CurveTexture_vjgi4")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7e8db"]
-vertices = PackedVector2Array(138.5, 131.5, 138.5, 63.5, 156.5, 51.5, 156.5, 267.5, 129.5, 218.5, 129.5, 157.5, 35.5, 51.5, 53.5, 63.5, 35.5, 267.5, 46.5, 157.5, 46.5, 218.5, 53.5, 131.5)
+vertices = PackedVector2Array(139, 132, 139, 63, 156, 52, 156, 267, 130, 219, 130, 157, 36, 52, 53, 63, 36, 267, 46, 157, 46, 219, 53, 132)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 2, 1, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(4, 3, 8, 10), PackedInt32Array(11, 0, 5, 9), PackedInt32Array(7, 11, 9), PackedInt32Array(8, 9, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(32, 48, 160, 48, 160, 271, 32, 271)])
-agent_radius = 3.5
+agent_radius = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ci547"]
 size = Vector2(78, 61)
@@ -695,10 +695,10 @@ size = Vector2(78, 61)
 size = Vector2(76, 54)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5edba"]
-vertices = PackedVector2Array(227.492, 267.5, 226.508, 35.5234, 236.5, 35.6016, 236.5, 131.5, 253.5, 267.5, 253.5, 220.5, 337.5, 131.5, 337.5, 36.3906, 347.477, 36.4688, 346.977, 156.5, 253.5, 156.5, 253.5, 195.5, 346.82, 195.5, 346.711, 220.5)
+vertices = PackedVector2Array(227.977, 267, 227.008, 36.0313, 236, 36.1016, 236, 132, 253, 267, 253, 220, 338, 132, 338, 36.8906, 346.977, 36.9609, 346.492, 156, 253, 156, 253, 196, 346.313, 196, 346.219, 220)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(6, 9, 10, 3), PackedInt32Array(11, 12, 13, 5), PackedInt32Array(11, 5, 3), PackedInt32Array(11, 3, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(223, 32, 351, 33, 350, 271, 224, 271)])
-agent_radius = 3.5
+agent_radius = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5edba"]
 size = Vector2(94, 95)
@@ -2206,6 +2206,21 @@ position = Vector2(946, 135)
 position = Vector2(945, 186)
 occupied = true
 
+[node name="SlotMachine4" parent="World/Casino" instance=ExtResource("6_r0x5m")]
+position = Vector2(846, 84)
+scale = Vector2(-1, 1)
+occupied = true
+
+[node name="SlotMachine5" parent="World/Casino" instance=ExtResource("6_r0x5m")]
+position = Vector2(846, 135)
+scale = Vector2(-1, 1)
+occupied = true
+
+[node name="SlotMachine6" parent="World/Casino" instance=ExtResource("6_r0x5m")]
+position = Vector2(847, 186)
+scale = Vector2(-1, 1)
+occupied = true
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="World/Casino"]
 stream = ExtResource("11_qjyg3")
 autoplay = true
@@ -2218,6 +2233,24 @@ texture = ExtResource("14_a8wo8")
 [node name="Grandma2" type="Sprite2D" parent="World/Casino"]
 texture_filter = 1
 position = Vector2(944, 192)
+texture = ExtResource("14_a8wo8")
+
+[node name="Grandma3" type="Sprite2D" parent="World/Casino"]
+texture_filter = 1
+position = Vector2(847, 90)
+scale = Vector2(-1, 1)
+texture = ExtResource("14_a8wo8")
+
+[node name="Grandma4" type="Sprite2D" parent="World/Casino"]
+texture_filter = 1
+position = Vector2(848, 192)
+scale = Vector2(-1, 1)
+texture = ExtResource("14_a8wo8")
+
+[node name="Grandma5" type="Sprite2D" parent="World/Casino"]
+texture_filter = 1
+position = Vector2(847, 141)
+scale = Vector2(-1, 1)
 texture = ExtResource("14_a8wo8")
 
 [node name="Pottedplant1" type="Sprite2D" parent="World/Casino"]
@@ -2343,10 +2376,10 @@ position = Vector2(270, 177)
 texture = ExtResource("60_il60g")
 unlock_method_name = "get_fancy_oven"
 price = 200
-prereq = NodePath("../doughbot")
 prereqtext = "Au-Dough-Matic"
 itemname = "Fancy Oven"
 description = "An automated oven"
+prereq = NodePath("../doughbot")
 
 [node name="fakereviews" parent="Shop/Wall" instance=ExtResource("44_n6lnq")]
 position = Vector2(83, 120)

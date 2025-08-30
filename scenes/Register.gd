@@ -22,7 +22,7 @@ func cash_out(held_biscuit: Biscuit) -> bool:
 		success = true
 		# reset luck to full (0 for some stupid reason)
 		# when selling cookies
-		Global.mood = 0
+		$"../../../UI/MarginContainer/VBoxContainer/Emotion".set_mood(0)
 		$"..".remove_customer()
 	return success
 

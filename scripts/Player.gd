@@ -263,16 +263,19 @@ func open_slot_machine() -> void:
 	if slot_machine_hud.visible:
 		return
 	slot_machine_hud.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func open_shop() -> void:
 	if shop_hud.visible:
 		return
 	shop_hud.pick_random_hat()
 	shop_hud.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func close_all_huds() -> void:
 	slot_machine_hud.visible = false
 	shop_hud.visible = false
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 func _on_cutting_area_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -375,7 +378,7 @@ func use_register() -> void:
 			toast("You can't sell dough to customers")
 			return
 		held_biscuit.stageEnum.COOKED:
-			if held_biscuit.quality < 0.4:
+			if held_biscuit.quality < 0.4 && held_biscuit.time_cooked < held_biscuit.bake_time:
 				toast("These biscuits are raw, put them back in the oven")
 				return
 			
@@ -469,6 +472,8 @@ func toast(text, duration: float = 3) -> void:
 
 func hit_by_car(car, going_down) -> void:
 	Global.money -= ceil(Global.money/10)
+	var tween: Tween = create_tween()
+	tween.tween_property($Sprite2D, "modulate:v", 1, 0.1).from(15)
 	if going_down:
 		car_hit_direction.y = 140
 	else:

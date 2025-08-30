@@ -42,6 +42,10 @@ func _physics_process(_delta: float) -> void:
 		var current_agent_position: Vector2 = global_position
 		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 		direction = current_agent_position.direction_to(next_path_position)
+		if direction.x < 0:
+			$Sprite2D.flip_h = true
+		else:
+			$Sprite2D.flip_h = false
 	
 	velocity = direction * speed
 	move_and_slide()

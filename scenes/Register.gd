@@ -5,6 +5,8 @@ var biscuit_price: int = 10
 @export var fancyoven: Node2D
 
 func cash_out(held_biscuit: Biscuit) -> bool:
+	if not $"..".is_customer_at_register():
+		return false
 	var success = false
 	if held_biscuit:
 		biscuit = held_biscuit
@@ -12,9 +14,9 @@ func cash_out(held_biscuit: Biscuit) -> bool:
 		if fancyoven.biscuit != null:
 			if fancyoven.grabbable:
 				biscuit = fancyoven.register_grab()
-	if biscuit != null && $"..".is_customer_at_register():
+	if biscuit != null:
 		var value = floor(biscuit_price * biscuit.quality)
-		$AudioStreamPlayer.play()
+		#$AudioStreamPlayer.play()
 		Global.money += value
 		biscuit = null
 		success = true
@@ -23,3 +25,9 @@ func cash_out(held_biscuit: Biscuit) -> bool:
 		Global.mood = 0
 		$"..".remove_customer()
 	return success
+
+func has_fancyoven_biscuit() -> bool:
+	if fancyoven && fancyoven.grabbable:
+		return true
+	else:
+		return false

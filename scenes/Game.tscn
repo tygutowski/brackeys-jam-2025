@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=4 uid="uid://dfa7cveux5qrs"]
+[gd_scene load_steps=165 format=4 uid="uid://dfa7cveux5qrs"]
 
 [ext_resource type="Texture2D" uid="uid://d30uwd8shcjfy" path="res://art/custom-tilemap.png" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://2kedd4titwns" path="res://scripts/Player.gd" id="2_u44n3"]
@@ -20,7 +20,8 @@
 [ext_resource type="Script" uid="uid://bswj51tam3ku0" path="res://scripts/CasinoManager.gd" id="9_yyih5"]
 [ext_resource type="Texture2D" uid="uid://c53oebd7on4ac" path="res://art/mixer-spritesheet.png" id="11_hmewc"]
 [ext_resource type="AudioStream" uid="uid://bpchasxw184gq" path="res://audio/casinoaudio.mp3" id="11_qjyg3"]
-[ext_resource type="Script" uid="uid://bd6q8n31ydv6u" path="res://scenes/fridge.gd" id="12_cxum0"]
+[ext_resource type="AudioStream" uid="uid://bdufjjyec0kw" path="res://audio/pager.mp3" id="12_7e8db"]
+[ext_resource type="Script" path="res://scenes/fridge.gd" id="12_cxum0"]
 [ext_resource type="Script" uid="uid://12ok5wom7iuu" path="res://scripts/ShopManager.gd" id="12_elkpi"]
 [ext_resource type="Texture2D" uid="uid://b0qkffapny5ch" path="res://art/coolhat_small.png" id="12_n6ob3"]
 [ext_resource type="Texture2D" uid="uid://b4glbmpuq682t" path="res://art/chefs_hat.png" id="12_wjp16"]
@@ -35,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://crek1bj6picha" path="res://art/whitecar.png" id="16_ci547"]
 [ext_resource type="Script" uid="uid://bweew86xs20ha" path="res://scenes/Mixer.gd" id="17_naigu"]
 [ext_resource type="Texture2D" uid="uid://cl2oom2cxstdi" path="res://art/biscuit_tray_spritesheet.png" id="18_426vi"]
+[ext_resource type="Script" uid="uid://cn5ea8v2gvfe8" path="res://scripts/wandering_pedestrians.gd" id="18_ci547"]
 [ext_resource type="Script" uid="uid://crdsqijadpx0o" path="res://scenes/Cutter.gd" id="18_m1oc7"]
 [ext_resource type="Script" uid="uid://0w7g5iaf7b5f" path="res://scenes/ui.gd" id="18_sv1m6"]
 [ext_resource type="PackedScene" uid="uid://df56b7s6avaf8" path="res://scenes/SlotMachineHUD.tscn" id="18_wuoie"]
@@ -59,7 +61,8 @@
 [ext_resource type="Texture2D" uid="uid://rw2qaxlvvxwi" path="res://art/fridge.png" id="37_7f8l2"]
 [ext_resource type="Texture2D" uid="uid://bj57cnqkem4qg" path="res://art/raw_dough_icon.png" id="37_xypbv"]
 [ext_resource type="Texture2D" uid="uid://27u2un4cjs87" path="res://art/fancyoven.png" id="38_n4ira"]
-[ext_resource type="Script" uid="uid://dc12ikywl8hhp" path="res://scenes/shopzone.gd" id="40_3ugab"]
+[ext_resource type="PackedScene" uid="uid://bsnausavxatmi" path="res://scenes/Customer.tscn" id="39_n4ira"]
+[ext_resource type="Script" path="res://scenes/shopzone.gd" id="40_3ugab"]
 [ext_resource type="Texture2D" uid="uid://ch56gtpadfoxw" path="res://art/walt_small.png" id="41_d6agh"]
 [ext_resource type="Script" uid="uid://bjvwntyegxxi4" path="res://scenes/shop.gd" id="42_kg1ax"]
 [ext_resource type="Texture2D" uid="uid://c1iq0gg5kvlce" path="res://art/shop_background.png" id="42_o5b2d"]
@@ -678,6 +681,33 @@ direction = Vector3(0, -1, 0)
 initial_velocity_max = 10.0
 gravity = Vector3(0, -3, 0)
 alpha_curve = SubResource("CurveTexture_vjgi4")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7e8db"]
+vertices = PackedVector2Array(138.5, 131.5, 138.5, 63.5, 156.5, 51.5, 156.5, 267.5, 129.5, 218.5, 129.5, 157.5, 35.5, 51.5, 53.5, 63.5, 35.5, 267.5, 46.5, 157.5, 46.5, 218.5, 53.5, 131.5)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 2, 1, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(4, 3, 8, 10), PackedInt32Array(11, 0, 5, 9), PackedInt32Array(7, 11, 9), PackedInt32Array(8, 9, 10)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(32, 48, 160, 48, 160, 271, 32, 271)])
+agent_radius = 3.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ci547"]
+size = Vector2(78, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1ptx"]
+size = Vector2(76, 54)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5edba"]
+vertices = PackedVector2Array(227.492, 267.5, 226.508, 35.5234, 236.5, 35.6016, 236.5, 131.5, 253.5, 267.5, 253.5, 220.5, 337.5, 131.5, 337.5, 36.3906, 347.477, 36.4688, 346.977, 156.5, 253.5, 156.5, 253.5, 195.5, 346.82, 195.5, 346.711, 220.5)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(6, 9, 10, 3), PackedInt32Array(11, 12, 13, 5), PackedInt32Array(11, 5, 3), PackedInt32Array(11, 3, 10)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(223, 32, 351, 33, 350, 271, 224, 271)])
+agent_radius = 3.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5edba"]
+size = Vector2(94, 95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0566t"]
+size = Vector2(94, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v24y2"]
+size = Vector2(94, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im84i"]
 size = Vector2(208, 11)
@@ -1638,6 +1668,9 @@ texture_filter = 1
 position = Vector2(-1, -3)
 texture = ExtResource("12_n6ob3")
 
+[node name="Pager" type="AudioStreamPlayer2D" parent="World/Generic/CharacterBody2D"]
+stream = ExtResource("12_7e8db")
+
 [node name="Camera2D" type="Camera2D" parent="World/Generic"]
 position = Vector2(895, 152)
 
@@ -1729,6 +1762,75 @@ script = ExtResource("19_0566t")
 car_scene = ExtResource("94_v24y2")
 going_down = true
 texture_list = Array[Texture]([ExtResource("15_7e8db"), ExtResource("16_ci547"), ExtResource("5_qjyg3")])
+
+[node name="WanderingPedestrians" type="Node2D" parent="World/Outside" node_paths=PackedStringArray("left_region", "left_customers", "right_region", "right_customers")]
+script = ExtResource("18_ci547")
+left_region = NodePath("NavigationRegion2D")
+left_customers = [NodePath("Customer"), NodePath("Customer2")]
+right_region = NodePath("NavigationRegion2D2")
+right_customers = [NodePath("Customer3"), NodePath("Customer4")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World/Outside/WanderingPedestrians"]
+navigation_polygon = SubResource("NavigationPolygon_7e8db")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D"]
+position = Vector2(96, 107)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D/StaticBody2D"]
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_ci547")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D"]
+position = Vector2(89, 201)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D/StaticBody2D2"]
+position = Vector2(-1, -13)
+shape = SubResource("RectangleShape2D_t1ptx")
+
+[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="World/Outside/WanderingPedestrians"]
+navigation_polygon = SubResource("NavigationPolygon_5edba")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2"]
+position = Vector2(287, 107)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2/StaticBody2D"]
+position = Vector2(0, -26.5)
+shape = SubResource("RectangleShape2D_5edba")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2"]
+position = Vector2(304, 176)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_0566t")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2"]
+position = Vector2(304, 247)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Outside/WanderingPedestrians/NavigationRegion2D2/StaticBody2D3"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_v24y2")
+
+[node name="Customer" parent="World/Outside/WanderingPedestrians" instance=ExtResource("39_n4ira")]
+position = Vector2(44, 140)
+
+[node name="Customer2" parent="World/Outside/WanderingPedestrians" instance=ExtResource("39_n4ira")]
+position = Vector2(133, 241)
+
+[node name="Customer3" parent="World/Outside/WanderingPedestrians" instance=ExtResource("39_n4ira")]
+position = Vector2(245, 146)
+
+[node name="Customer4" parent="World/Outside/WanderingPedestrians" instance=ExtResource("39_n4ira")]
+position = Vector2(327, 209)
 
 [node name="Bakery" type="Node2D" parent="World" node_paths=PackedStringArray("queue_slots")]
 script = ExtResource("8_lvtmh")

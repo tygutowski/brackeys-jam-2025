@@ -67,10 +67,14 @@ func get_timbs() -> void:
 	
 func get_pager() -> void:
 	has_pager = true
+	$"../../Bakery".new_customer.connect(on_get_paged)
 
 func get_fake_reviews() -> void:
 	has_fake_reviews = true
 
+func on_get_paged():
+	$Pager.play()
+	
 func get_doughbot() -> void:
 	has_doughbot = true
 	$"../../Bakery/MixerArea".visible = false
@@ -347,13 +351,22 @@ func use_cutter() -> void:
 			toast("You can't shape ingredients, try mixing it into dough first")
 	
 func use_register() -> void:
+	
 	if has_fancy_oven:
-		register.cash_out(null)
-		return
-	if held_biscuit == null:
+		var success: bool = register.cash_out(null)
+		if success:
+			return
+	if held_biscuit == null && not register.has_fancyoven_biscuit():
 		toast("You aren't holding anything")
 		return
-
+		
+	if  $"../../Bakery".customer_stack.is_empty():
+		toast("There are no customers to buy your biscuits")
+		return
+	elif not $"../../Bakery".is_customer_at_register():
+		toast("Give them a moment, their hips aren't what they used to be")
+		return
+		
 	match held_biscuit.stage:
 		held_biscuit.stageEnum.INGREDIENTS:
 			toast("You can't sell raw ingredients to customers")
@@ -365,12 +378,7 @@ func use_register() -> void:
 			if held_biscuit.quality < 0.4:
 				toast("These biscuits are raw, put them back in the oven")
 				return
-			if  $"../../Bakery".customer_stack.is_empty():
-				toast("There are no customers to buy your biscuits")
-				return
-			elif not $"../../Bakery".is_customer_at_register():
-				toast("Give them a moment, their hips aren't what they used to be")
-				return
+			
 			register.cash_out(held_biscuit)
 			toast("You feel satisfied with your work. Your luck improved!", 3)
 			held_biscuit = null

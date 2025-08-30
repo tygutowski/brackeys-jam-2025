@@ -1,5 +1,6 @@
 extends Room
 
+signal new_customer
 @export var queue_slots: Array[Node2D] = []
 
 var customer_scene: PackedScene = preload("res://scenes/Customer.tscn")
@@ -13,6 +14,7 @@ func _on_add_customer_timer_timeout() -> void:
 	else:
 		$AddCustomerTimer.start(45 + randf_range(0, 15))
 	if customer_stack.size() < max_customers:
+		new_customer.emit()
 		var current_customer: Customer = customer_scene.instantiate()
 		customer_stack.append(current_customer)
 		current_customer.global_position = $BakeryOutDoor.global_position
@@ -22,6 +24,8 @@ func _on_add_customer_timer_timeout() -> void:
 
 
 func is_customer_at_register() -> bool:
+	if customer_stack.size() == 0:
+		return false
 	if customer_stack[0].navigation_agent.is_navigation_finished():
 		return true
 	else:

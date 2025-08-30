@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/mixer.mp3-717ac27c80beb92ef0cdcec4d1fe63d3.mp
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

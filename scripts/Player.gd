@@ -5,6 +5,7 @@ class_name Player
 @export var bakery: Node2D
 @export var casino: Node2D
 @export var shop: Node2D
+var damaged: bool = false
 var has_been_hinted: bool = false
 @export var doughbot: Node2D
 var in_doughbot_input_area: bool = false
@@ -235,6 +236,9 @@ func _physics_process(_delta: float) -> void:
 		get_node("AnimationPlayer").play("idle")
 	else:
 		get_node("AnimationPlayer").play("run")
+	if damaged:
+		velocity.y += 750
+		velocity.x += 750
 	move_and_slide()
 
 # this is for movement between rooms
@@ -450,12 +454,17 @@ func toast(text, duration: float = 3) -> void:
 	await t.timeout
 	toasting = false
 
+func hit_by_car(going_down) -> void:
+	Global.money -= ceil(Global.money/10)
+	#damage = Vector2()
+
 func _on_fridge_area_body_entered(body: Node2D) -> void:
-	in_fridge_area = true
+	if body is Player:
+		in_fridge_area = true
 
 func _on_fridge_area_body_exited(body: Node2D) -> void:
-	in_fridge_area = false
-
+	if body is Player:
+		in_fridge_area = false
 
 func _on_placement_area_body_entered(body: Node2D) -> void:
 	if body is Player:
@@ -565,11 +574,6 @@ func update_hand() -> void:
 			$TinyHands.frame = 2
 		elif held_biscuit.stage == held_biscuit.stageEnum.COOKED:
 			$TinyHands.frame = held_biscuit.cook_amount
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
 
 func _on_doughbot_2d_body_entered(body: Node2D) -> void:
 	if body is Player:

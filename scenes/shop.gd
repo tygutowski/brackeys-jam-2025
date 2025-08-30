@@ -2,8 +2,8 @@ extends CanvasLayer
 
 var timer: float = 0
 var anim_list: Array = ["blink", "move_eyes", "smile"]
+
 func _ready() -> void:
-	return
 	visible = false
 
 func _process(delta: float) -> void:

@@ -19,13 +19,13 @@ func _ready() -> void:
 
 func hover_item(value: bool) -> void:
 	if value:
-		var item: String = str(itemname)
-		var desc: String = str(description)
-		var price: String = str(price)
+		var sitem: String = str(itemname)
+		var sdesc: String = str(description)
+		var sprice: String = str(price)
 		if prereq:
-			player.toast("{0} coins: {1}\nPrerequisite: {3}\n{2}".format([price, item, desc, prereqtext]), 1000)
+			player.toast("{0} coins: {1}\nPrerequisite: {3}\n{2}".format([sprice, sitem, sdesc, prereqtext]), 1000)
 		else:
-			player.toast("{0} coins: {1}\n{2}".format([price, item, desc]), 1000)
+			player.toast("{0} coins: {1}\n{2}".format([sprice, sitem, sdesc]), 1000)
 		get_node("outline").visible = true
 		$"../../Hand".item = self
 	else:

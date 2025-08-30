@@ -18,7 +18,7 @@ var stopping: bool = false
 # luck 0-1 break even, 2 is neutral, 3-4 is negative
 # this incentivizes players to bake once in a while
 var luck_meter: Array[float] = [.150, .100, .075, .050, .010]
-
+var big_loser_modifier: float = 0
 func is_any_spinning() -> bool:
 	return get_node("SubViewport/Spinner1").spinning or get_node("SubViewport/Spinner2").spinning or get_node("SubViewport/Spinner3").spinning
 
@@ -42,7 +42,7 @@ func stop_spinners() -> void:
 	
 	if is_all_spinning():
 		var value = randf_range(0, 1)
-		if value <= luck_meter[Global.mood]:
+		if value <= luck_meter[Global.mood] + big_loser_modifier:
 			edge = false
 			disappoint = false
 			is_rigged = true
@@ -89,7 +89,9 @@ func stop_spinners() -> void:
 		elif disappoint:
 			spinner3_value = await get_node("SubViewport/Spinner3").stop(spinner1_value)
 	if not is_any_spinning():
+		
 		if spinner1_value == spinner2_value and spinner2_value == spinner3_value:
+			big_loser_modifier = 0
 			$AnimationPlayer.play("jackpot")
 			match spinner1_value:
 				0: # seven (A tier)
@@ -123,5 +125,6 @@ func stop_spinners() -> void:
 				9: # bar (B tier)
 					$"SlotMachine/3CoinParticle".amount = int(jackpot/5)
 					get_node("../UI").increase_money(50)
-
+		else:
+			big_loser_modifier += 0.01
 	stopping = false

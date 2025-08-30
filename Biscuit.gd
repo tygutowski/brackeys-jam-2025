@@ -15,13 +15,13 @@ func cook(time: float) -> void:
 # sprite indices:
 # 2 = undercooked, 3 = perfect, 7 = overcooked, 4 = burnt
 
-func set_quality(bake_time: float) -> void:
-	if bake_time <= 0.0:
+func set_quality(bt: float) -> void:
+	if bt <= 0.0:
 		cook_amount = -1
 		quality = 0.0
 		return
 
-	var value: float = clamp(time_cooked / bake_time, 0.0, 1.0)
+	var value: float = clamp(time_cooked / bt, 0.0, 1.0)
 
 	# decide sprite first
 	if value <= 0.45:

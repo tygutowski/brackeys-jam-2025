@@ -18,5 +18,8 @@ func cash_out(held_biscuit: Biscuit) -> bool:
 		Global.money += value
 		biscuit = null
 		success = true
+		# reset luck to full (0 for some stupid reason)
+		# when selling cookies
+		Global.mood = 0
 		$"..".remove_customer()
 	return success

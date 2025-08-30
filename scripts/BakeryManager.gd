@@ -6,11 +6,12 @@ var customer_scene: PackedScene = preload("res://scenes/Customer.tscn")
 var camera_pos: Vector2 = Vector2(544, 152)
 @export var customer_stack: Array[Customer] = []
 @onready var max_customers: int = queue_slots.size()
-var customer_spawn_time: float = 90
-var customer_spawn_rand: float = 30 # customer_spawn_time + [0, this_value]
 
 func _on_add_customer_timer_timeout() -> void:
-	$AddCustomerTimer.start(customer_spawn_time + randf_range(0, customer_spawn_rand))
+	if get_tree().get_first_node_in_group("player").has_fake_reviews:
+		$AddCustomerTimer.start(15 + randf_range(0, 15))
+	else:
+		$AddCustomerTimer.start(45 + randf_range(0, 15))
 	if customer_stack.size() < max_customers:
 		var current_customer: Customer = customer_scene.instantiate()
 		customer_stack.append(current_customer)

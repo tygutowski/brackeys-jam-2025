@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://df56b7s6avaf8"]
+[gd_scene load_steps=54 format=3 uid="uid://df56b7s6avaf8"]
 
 [ext_resource type="PackedScene" uid="uid://cl21kvpvqikjt" path="res://scenes/Spinner.tscn" id="1_00bh1"]
 [ext_resource type="Script" uid="uid://dyiu38wi45so8" path="res://scripts/SlotMachineGUI.gd" id="1_v24rf"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://u4qeax0p0qbk" path="res://art/coinpurse_back.png" id="19_b36n1"]
 [ext_resource type="Texture2D" uid="uid://bnmk6r8n6bqqy" path="res://art/coin-hider-background.png" id="19_p0x1c"]
 [ext_resource type="Texture2D" uid="uid://b4o2wwn86heop" path="res://art/coinpurse_front.png" id="20_sqd8s"]
+[ext_resource type="Texture2D" uid="uid://dej4nbyv1ixhb" path="res://art/infosheet.png" id="26_mbilu"]
 
 [sub_resource type="Animation" id="Animation_bvhbk"]
 length = 0.001
@@ -595,6 +596,9 @@ _data = {
 &"tap": SubResource("Animation_0mevm")
 }
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u16xc"]
+load_path = "res://.godot/imported/win-rates.png-f93d6d92a8d8551ffad3d8a8c40e1a68.ctex"
+
 [node name="SlotMachine" type="CanvasLayer"]
 script = ExtResource("1_v24rf")
 
@@ -612,16 +616,14 @@ texture = ExtResource("19_p0x1c")
 
 [node name="CrankSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_k017t")
-volume_db = -10.0
 
 [node name="CoinInsert" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_b36n1")
-volume_db = -10.0
 max_polyphony = 5
 
 [node name="CoinHover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_sqd8s")
-volume_db = -20.0
+volume_db = -5.0
 max_polyphony = 5
 
 [node name="JackpotWin" type="AudioStreamPlayer" parent="."]
@@ -924,6 +926,16 @@ normal_speed = 350.0
 z_index = -5
 position = Vector2(54, 0)
 normal_speed = 500.0
+
+[node name="Win-rates" type="Sprite2D" parent="."]
+position = Vector2(97, 174)
+texture = SubResource("CompressedTexture2D_u16xc")
+
+[node name="Infosheet" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(116, 2)
+texture = ExtResource("26_mbilu")
+centered = false
 
 [connection signal="mouse_entered" from="SlotMachine/Button" to="Hand" method="_on_stopbutton_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="SlotMachine/Button" to="Hand" method="_on_stopbutton_area_2d_mouse_exited"]

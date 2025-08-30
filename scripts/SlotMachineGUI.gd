@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var plays: int = 0
-@onready var jackpot: int = randi_range(150, 300)
+@onready var jackpot: int = randi_range(100, 200)
 var spinner1_value = -1
 var spinner2_value = -1
 var spinner3_value = -1
@@ -14,8 +14,16 @@ var spinner3_value = -1
 @export var disappoint: bool = false
 var stopping: bool = false
 
+# we need about 7.5% chance of winning to profit
+# luck 0-1 break even, 2 is neutral, 3-4 is negative
+# this incentivizes players to bake once in a while
+var luck_meter: Array[float] = [.150, .100, .075, .050, .010]
+
 func is_any_spinning() -> bool:
 	return get_node("SubViewport/Spinner1").spinning or get_node("SubViewport/Spinner2").spinning or get_node("SubViewport/Spinner3").spinning
+
+func is_all_spinning() -> bool:
+	return get_node("SubViewport/Spinner1").spinning and get_node("SubViewport/Spinner2").spinning and get_node("SubViewport/Spinner3").spinning
 
 func _process(_delta) -> void:
 	$SlotMachine/Label2.text = str(plays)
@@ -31,6 +39,24 @@ func stop_spinners() -> void:
 	if stopping:
 		return
 	stopping = true
+	
+	if is_all_spinning():
+		var value = randf_range(0, 1)
+		if value <= luck_meter[Global.mood]:
+			edge = false
+			disappoint = false
+			is_rigged = true
+		else:
+			var disappoint_or_edge = randi_range(0,4)
+			if disappoint_or_edge == 0:
+				if randi_range(0,1) == 1:
+					edge = true
+					disappoint = false
+					is_rigged = false
+				else:
+					disappoint = true
+					edge = false
+					is_rigged = false
 	
 	# if the wheel is starting, dont stop it
 	# (it must be at full speed)
@@ -68,7 +94,7 @@ func stop_spinners() -> void:
 			match spinner1_value:
 				0: # seven (A tier)
 					$"SlotMachine/3CoinParticle".amount = int(jackpot/3)
-					get_node("../UI").increase_money(70)
+					get_node("../UI").increase_money(50)
 				1: # lemon (C tier)
 					$"SlotMachine/3CoinParticle".amount = int(jackpot/7)
 					get_node("../UI").increase_money(30)

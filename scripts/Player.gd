@@ -5,7 +5,7 @@ class_name Player
 @export var bakery: Node2D
 @export var casino: Node2D
 @export var shop: Node2D
-
+var has_been_hinted: bool = false
 @export var doughbot: Node2D
 var in_doughbot_input_area: bool = false
 var ingredient_price: int = 0
@@ -52,7 +52,7 @@ var in_mixer_area: bool = false
 var in_cutting_area: bool = false
 var in_garbage_area: bool = false
 var in_fridge_area: bool = false
-
+var has_fake_reviews: bool = false
 var in_placement1_area: bool = false
 var in_placement2_area: bool = false
 var in_placement3_area: bool = false
@@ -61,11 +61,15 @@ var place2_item: Biscuit = null
 var place3_item: Biscuit = null
 
 func get_timbs() -> void:
+	print('unlock timbs')
 	has_timbs = true
 	
 func get_pager() -> void:
 	has_pager = true
-	
+
+func get_fake_reviews() -> void:
+	has_fake_reviews = true
+
 func get_doughbot() -> void:
 	has_doughbot = true
 	$"../../Bakery/MixerArea".visible = false
@@ -78,9 +82,6 @@ func get_doughbot() -> void:
 	
 func get_cool_hat() -> void:
 	has_cool_hat = true
-	
-func get_cranker() -> void:
-	has_cranker = true
 	 
 func get_funnel() -> void:
 	has_funnel = true
@@ -98,8 +99,6 @@ func _ready() -> void:
 	$"../../Bakery/AudoughmaticMachine/Input/CollisionShape2D".disabled = true
 	$"../../Bakery/Fancyoven".visible = false
 	
-	#dwget_doughbot()
-	#get_fancy_oven()
 	slot_machine_hud.visible = false
 	camera.global_position = bakery.camera_pos
 	outside.exited()
@@ -108,7 +107,7 @@ func _ready() -> void:
 	bakery.entered()
 
 func unlock_item(variable_name: String) -> void:
-	print("unlocking : '" + variable_name + "'")
+	print("calling function : '" + variable_name + "'")
 	var callable = Callable(self, variable_name)
 	callable.call()
 
@@ -220,7 +219,7 @@ func _physics_process(_delta: float) -> void:
 	# add boots or movement speed upgrades later
 	movement_speed = base_movement_speed
 	if has_timbs:
-		movement_speed + 15.0
+		movement_speed += 30.0
 	var input: Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
 	velocity = input * movement_speed
 	# close slots/shop/etc
@@ -364,6 +363,7 @@ func use_register() -> void:
 				toast("Give them a moment, their hips aren't what they used to be")
 				return
 			register.cash_out(held_biscuit)
+			toast("You feel satisfied with your work. Your luck improved!", 3)
 			held_biscuit = null
 			update_hand()
 
@@ -413,6 +413,9 @@ func use_oven() -> void:
 			# if we have a shaped biscuit
 			if held_biscuit.stage == held_biscuit.stageEnum.SHAPED or held_biscuit.stage == held_biscuit.stageEnum.COOKED:
 				oven.cook_biscuit(held_biscuit)
+				if not has_been_hinted:
+					toast("You have some time while this \"bakes\", leave your bakery and explore", 8)
+					has_been_hinted = true
 				held_biscuit = null
 			elif held_biscuit.stage == held_biscuit.stageEnum.RAW:
 				toast("It's just a big wad of dough, shape it into biscuits first")

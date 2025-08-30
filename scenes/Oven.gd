@@ -3,7 +3,7 @@ extends Area2D
 var item_in_oven: bool = false
 var bake_time: float
 var biscuit: Biscuit
-var default_bake_time: float = 60
+var default_bake_time: float = 30
 var bake_time_range: float = 10
 
 func _process(delta) -> void:

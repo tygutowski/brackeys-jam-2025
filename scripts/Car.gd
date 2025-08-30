@@ -19,7 +19,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		position.y -= velocity * delta
 
-
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		body.hit_by_car(going_down)
+		body.hit_by_car(self, going_down)

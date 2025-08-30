@@ -17,5 +17,11 @@ func spawn_car() -> void:
 	car.get_node("Sprite2D").texture = texture_list[randi_range(0,2)]
 	if going_down:
 		car.going_down = true
-		car.get_node("Sprite2D").rotation = PI
+		car.rotation = PI
 	add_child(car)
+	var timer = Timer.new()
+	car.add_child(timer)
+	timer.start(10)
+	await timer.timeout
+	car.queue_free()
+	timer.queue_free()

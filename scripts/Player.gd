@@ -5,7 +5,7 @@ class_name Player
 @export var bakery: Node2D
 @export var casino: Node2D
 @export var shop: Node2D
-var damaged: bool = false
+var damaged_frames: int = 0
 var has_been_hinted: bool = false
 @export var doughbot: Node2D
 var in_doughbot_input_area: bool = false
@@ -46,7 +46,7 @@ var held_biscuit: Biscuit = null
 var toasting: bool = false
 # if youre within range of a slot machine
 var within_slot_range: bool = false
-
+var car_hit_direction: Vector2
 var in_register_area: bool = false
 var in_oven_area: bool = false
 var in_mixer_area: bool = false
@@ -83,7 +83,9 @@ func get_doughbot() -> void:
 	
 func get_cool_hat() -> void:
 	has_cool_hat = true
-	 
+	$Hats/chefhat.visible = false
+	$Hats/coolhat.visible = true
+
 func get_funnel() -> void:
 	has_funnel = true
 	
@@ -99,7 +101,8 @@ func _ready() -> void:
 	$"../../Bakery/AudoughmaticMachine/Output/CollisionShape2D".disabled = true
 	$"../../Bakery/AudoughmaticMachine/Input/CollisionShape2D".disabled = true
 	$"../../Bakery/Fancyoven".visible = false
-	
+	$Hats/chefhat.visible = true
+	$Hats/coolhat.visible = false
 	slot_machine_hud.visible = false
 	camera.global_position = bakery.camera_pos
 	outside.exited()
@@ -222,7 +225,12 @@ func _physics_process(_delta: float) -> void:
 	if has_timbs:
 		movement_speed += 30.0
 	var input: Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
-	velocity = input * movement_speed
+	if damaged_frames <= 0:
+		velocity = input * movement_speed
+	else:
+		damaged_frames -= 1
+		velocity = car_hit_direction
+	move_and_slide()
 	# close slots/shop/etc
 	if Input.is_action_just_pressed("close"):
 		close_all_huds()
@@ -236,10 +244,7 @@ func _physics_process(_delta: float) -> void:
 		get_node("AnimationPlayer").play("idle")
 	else:
 		get_node("AnimationPlayer").play("run")
-	if damaged:
-		velocity.y += 750
-		velocity.x += 750
-	move_and_slide()
+
 
 # this is for movement between rooms
 func teleport_to(target: Vector2, current_room_name: String, new_room_name: String) -> void:
@@ -454,9 +459,17 @@ func toast(text, duration: float = 3) -> void:
 	await t.timeout
 	toasting = false
 
-func hit_by_car(going_down) -> void:
+func hit_by_car(car, going_down) -> void:
 	Global.money -= ceil(Global.money/10)
-	#damage = Vector2()
+	if going_down:
+		car_hit_direction.y = 140
+	else:
+		car_hit_direction.y = -140
+	if (global_position.x - car.global_position.x) >= 0:
+		car_hit_direction.x = 140
+	else:
+		car_hit_direction.x = -140
+	damaged_frames = 7
 
 func _on_fridge_area_body_entered(body: Node2D) -> void:
 	if body is Player:
